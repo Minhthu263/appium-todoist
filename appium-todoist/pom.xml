@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>test-mobile</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <cucumber.version>4.3.0</cucumber.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <aspectj.version>1.9.5</aspectj.version>
+        <kotlin.version>1.3.41</kotlin.version>
+        <default.environment>dev</default.environment>
+        <default.devices>android</default.devices>
+        <default.language>en</default.language>
+        <parallel.tests>2</parallel.tests>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>io.cucumber</groupId>-->
+        <!--            <artifactId>cucumber-core</artifactId>-->
+        <!--            <version>${cucumber.version}</version>-->
+        <!--        </dependency>-->
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.4.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.appium</groupId>
+            <artifactId>java-client</artifactId>
+            <version>7.6.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.typesafe</groupId>
+            <artifactId>config</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-cucumber4-jvm</artifactId>
+            <version>2.17.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-rest-assured</artifactId>
+            <version>2.13.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.9</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.epam.reportportal</groupId>
+            <artifactId>agent-java-cucumber4</artifactId>
+            <version>5.1.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>3.14.9</version>
+        </dependency>
+        <dependency>
+            <groupId>com.epam.reportportal</groupId>
+            <artifactId>logger-java-logback</artifactId>
+            <version>5.1.3</version>
+        </dependency>
+
+    </dependencies>
+    <profiles>
+        <profile>
+            <id>remote</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.0.0-M5</version>
+                        <configuration>
+                            <includes>
+                                <include>*/**/CucumberTestRunner.java</include>
+                            </includes>
+                            <systemProperties>
+                                <property>
+                                    <name>allure.results.directory</name>
+                                    <value>${project.build.directory}/allure-results</value>
+                                </property>
+                            </systemProperties>
+                            <systemPropertyVariables>
+                                <device>${default.devices}</device>
+                                <environment>${default.environment}</environment>
+                                <language>${default.language}</language>
+                                <!--suppress UnresolvedMavenProperty -->
+                                <rp.launch>booking_mobile_remote [${environment}]</rp.launch>
+                                <rp.project>booking-automation-mobile</rp.project>
+                            </systemPropertyVariables>
+                        </configuration>
+<!--                        <dependencies>-->
+<!--                            <dependency>-->
+<!--                                <groupId>org.aspectj</groupId>-->
+<!--                                <artifactId>aspectjweaver</artifactId>-->
+<!--                                <version>${aspectj.version}</version>-->
+<!--                            </dependency>-->
+<!--                        </dependencies>-->
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>remote-parallel</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.0.0-M5</version>
+                    </plugin>
+<!--                    <plugin>-->
+<!--                        <artifactId>maven-failsafe-plugin</artifactId>-->
+<!--                        <version>3.0.0-M6</version>-->
+<!--                        <configuration>-->
+<!--                            <includes>-->
+<!--                                <include>**/*/*TestSuite.java</include>-->
+<!--                            </includes>-->
+<!--                            <parallel>classes</parallel>-->
+<!--                            <threadCount>${parallel.tests}</threadCount>-->
+<!--                            <forkCount>${parallel.tests}</forkCount>-->
+<!--                            <systemPropertyVariables>-->
+<!--                                <device>${default.devices}</device>-->
+<!--                                <language>${default.language}</language>-->
+<!--                                &lt;!&ndash;suppress UnresolvedMavenProperty &ndash;&gt;-->
+<!--                                <rp.launch>booking_mobile_remote [${environment}]</rp.launch>-->
+<!--                                <rp.project>booking-automation-mobile</rp.project>-->
+<!--                            </systemPropertyVariables>-->
+<!--                            <systemProperties>-->
+<!--                                <property>-->
+<!--                                    <name>allure.results.directory</name>-->
+<!--                                    <value>${project.build.directory}/allure-results</value>-->
+<!--                                </property>-->
+<!--                            </systemProperties>-->
+<!--                            <useUnlimitedThreads>true</useUnlimitedThreads>-->
+<!--                        </configuration>-->
+<!--                        <executions>-->
+<!--                            <execution>-->
+<!--                                <goals>-->
+<!--                                    <goal>integration-test</goal>-->
+<!--                                    <goal>verify</goal>-->
+<!--                                </goals>-->
+<!--                            </execution>-->
+<!--                        </executions>-->
+<!--                    </plugin>-->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <version>3.8.1</version>
+                        <configuration>
+                            <source>8</source>
+                            <target>8</target>
+                            <encoding>UTF-8</encoding>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>debug</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.0.0-M5</version>
+                        <configuration>
+                            <includes>
+                                <include>*/**/DebugRunner.java</include>
+                            </includes>
+                            <systemProperties>
+                                <property>
+                                    <name>allure.results.directory</name>
+                                    <value>${project.build.directory}/allure-results</value>
+                                </property>
+                            </systemProperties>
+                            <systemPropertyVariables>
+                                <device>${default.devices}</device>
+                                <environment>${default.environment}</environment>
+                                <language>${default.language}</language>
+                                <!--suppress UnresolvedMavenProperty -->
+                                <rp.launch>debug_mobile [${environment}]</rp.launch>
+                                <rp.project>debug-mobile</rp.project>
+                            </systemPropertyVariables>
+                        </configuration>
+<!--                        <dependencies>-->
+<!--                            <dependency>-->
+<!--                                <groupId>org.aspectj</groupId>-->
+<!--                                <artifactId>aspectjweaver</artifactId>-->
+<!--                                <version>${aspectj.version}</version>-->
+<!--                            </dependency>-->
+<!--                        </dependencies>-->
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
