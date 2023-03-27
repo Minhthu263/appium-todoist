@@ -4,7 +4,6 @@ import com.github.javafaker.Faker;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
@@ -24,11 +23,11 @@ import java.util.concurrent.TimeUnit;
 
 public class BasePage {
 
-    protected static void setImplicitlyWait(AndroidDriver<MobileElement> appiumDriver, long timeout) {
+    protected static void setImplicitlyWait(AppiumDriver<MobileElement> appiumDriver, long timeout) {
         appiumDriver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
     }
 
-    protected boolean isElementExist(AndroidDriver<MobileElement> appiumDriver, String locator) {
+    protected boolean isElementExist(AppiumDriver<MobileElement> appiumDriver, String locator) {
         setImplicitlyWait(appiumDriver, GlobalVariables.SHORT_TIME_OUT);
         boolean check = findElementsByXpath(appiumDriver, locator).isEmpty();
         setImplicitlyWait(appiumDriver, GlobalVariables.TIME_OUT);
@@ -47,7 +46,7 @@ public class BasePage {
         return appiumDriver.findElements(By.xpath(getLocatorDynamic(locator, value)));
     }
 
-    protected MobileElement findElementByXpath(AndroidDriver<MobileElement> appiumDriver, String locator, String... value) {
+    protected MobileElement findElementByXpath(AppiumDriver<MobileElement> appiumDriver, String locator, String... value) {
 
         return appiumDriver.findElement(By.xpath(getLocatorDynamic(locator, value)));
 
@@ -58,78 +57,69 @@ public class BasePage {
         return locator;
     }
 
-    protected void waitForVisible(AndroidDriver<MobileElement> appiumDriver, String locator) {
+    protected void waitForVisible(AppiumDriver<MobileElement> appiumDriver, String locator) {
 
         WebDriverWait wait = new WebDriverWait(appiumDriver, GlobalVariables.TIME_OUT);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
     }
 
-    protected void waitForVisible(AndroidDriver<MobileElement> appiumDriver, String locator, String... value) {
+    protected void waitForVisible(AppiumDriver<MobileElement> appiumDriver, String locator, String... value) {
         WebDriverWait wait = new WebDriverWait(appiumDriver, GlobalVariables.TIME_OUT);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(getLocatorDynamic(locator, value))));
     }
 
-    protected void waitForNotVisible(AndroidDriver<MobileElement> appiumDriver, String locator) {
+    protected void waitForNotVisible(AppiumDriver<MobileElement> appiumDriver, String locator) {
         WebDriverWait wait = new WebDriverWait(appiumDriver, GlobalVariables.TIME_OUT);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(locator)));
     }
 
-    protected void waitForClickable(AndroidDriver<MobileElement> appiumDriver, String locator) {
+    protected void waitForClickable(AppiumDriver<MobileElement> appiumDriver, String locator) {
 
         WebDriverWait wait = new WebDriverWait(appiumDriver, GlobalVariables.TIME_OUT);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(locator)));
     }
 
-    protected void waitForClickable(AndroidDriver<MobileElement> appiumDriver, String locator, String... values) {
+    protected void waitForClickable(AppiumDriver<MobileElement> appiumDriver, String locator, String... values) {
 
         WebDriverWait wait = new WebDriverWait(appiumDriver, GlobalVariables.TIME_OUT);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(getLocatorDynamic(locator, values))));
     }
 
-    protected void clickToElement(AndroidDriver<MobileElement> appiumDriver, String locator) {
-
+    protected void clickToElement(AppiumDriver<MobileElement> appiumDriver, String locator) {
         waitForClickable(appiumDriver, locator);
         findElementByXpath(appiumDriver, locator).click();
-
     }
 
-    protected void clearInputFeild(AndroidDriver<MobileElement> appiumDriver, String locator) {
-
+    protected void clearInputFeild(AppiumDriver<MobileElement> appiumDriver, String locator) {
         waitForClickable(appiumDriver, locator);
         findElementByXpath(appiumDriver, locator).click();
         findElementByXpath(appiumDriver, locator).clear();
-
     }
 
-    protected void clickToElement(AndroidDriver<MobileElement> appiumDriver, String locator, String... value) {
-
+    protected void clickToElement(AppiumDriver<MobileElement> appiumDriver, String locator, String... value) {
         waitForClickable(appiumDriver, locator, value);
         findElementByXpath(appiumDriver, locator, value).click();
-
     }
 
-    protected void checkCheckbox(AndroidDriver<MobileElement> appiumDriver, String locator) {
-
+    protected void checkCheckbox(AppiumDriver<MobileElement> appiumDriver, String locator) {
         if (!findElementByXpath(appiumDriver, locator).getAttribute("checked").equals("true")) {
             clickToElement(appiumDriver, locator);
         }
     }
 
-    protected void checkCheckbox(AndroidDriver<MobileElement> appiumDriver, String locator, String... value) {
-
+    protected void checkCheckbox(AppiumDriver<MobileElement> appiumDriver, String locator, String... value) {
         if (!findElementByXpath(appiumDriver, locator, value).getAttribute("checked").equals("true")) {
             clickToElement(appiumDriver, locator, value);
         }
     }
 
-    public void setAttribute(AndroidDriver<MobileElement> appiumDriver, String locator, String attName, String attValue, String... value) {
+    public void setAttribute(AppiumDriver<MobileElement> appiumDriver, String locator, String attName, String attValue, String... value) {
         WebElement element = findElementByXpath(appiumDriver, locator, value);
         JavascriptExecutor js = appiumDriver;
         js.executeScript("arguments[0].setAttribute(arguments[1], arguments[2]);", element, attName, attValue);
     }
 
-    protected void unCheckCheckbox(AndroidDriver<MobileElement> appiumDriver, String locator) {
-
+    protected void unCheckCheckbox(AppiumDriver<MobileElement> appiumDriver, String locator) {
         if (findElementByXpath(appiumDriver, locator).getAttribute("checked").equals("true")) {
             clickToElement(appiumDriver, locator);
         }
@@ -151,23 +141,21 @@ public class BasePage {
         }
     }
 
-    protected void senkeysToElement(AndroidDriver<MobileElement> appiumDriver, String locator, String value) {
-
+    protected void senkeysToElement(AppiumDriver<MobileElement> appiumDriver, String locator, String value) {
         waitForVisible(appiumDriver, locator);
         MobileElement element = findElementByXpath(appiumDriver, locator);
         element.clear();
         element.sendKeys(value);
     }
 
-    protected void clearTextElement(AndroidDriver<MobileElement> appiumDriver, String locator) {
-
+    protected void clearTextElement(AppiumDriver<MobileElement> appiumDriver, String locator) {
         waitForVisible(appiumDriver, locator);
         MobileElement element = findElementByXpath(appiumDriver, locator);
         element.click();
         element.clear();
     }
 
-    protected void tapThenSenkeysToElement(AndroidDriver<MobileElement> appiumDriver, String locator, String value) {
+    protected void tapThenSenkeysToElement(AppiumDriver<MobileElement> appiumDriver, String locator, String value) {
         waitForVisible(appiumDriver, locator);
         MobileElement element = findElementByXpath(appiumDriver, locator);
         waitForClickable(appiumDriver, locator);
@@ -178,8 +166,7 @@ public class BasePage {
         appiumDriver.hideKeyboard();
     }
 
-    protected void tapThenSenkeysToElement(AndroidDriver<MobileElement> appiumDriver, String locator, String param, String value) {
-
+    protected void tapThenSenkeysToElement(AppiumDriver<MobileElement> appiumDriver, String locator, String param, String value) {
         waitForClickable(appiumDriver, locator, param);
         MobileElement element = findElementByXpath(appiumDriver, locator, param);
         element.click();
@@ -189,19 +176,19 @@ public class BasePage {
         appiumDriver.hideKeyboard();
     }
 
-    protected void hideKeyboard(AndroidDriver<MobileElement> appiumDriver) {
+    protected void hideKeyboard(AppiumDriver<MobileElement> appiumDriver) {
         appiumDriver.hideKeyboard();
     }
 
-    protected String getText(AndroidDriver<MobileElement> appiumDriver, String locator) {
+    protected String getText(AppiumDriver<MobileElement> appiumDriver, String locator) {
         return findElementByXpath(appiumDriver, locator).getText();
     }
 
-    protected String getAttribute(AndroidDriver<MobileElement> appiumDriver, String locator, String nameAtribute) {
+    protected String getAttribute(AppiumDriver<MobileElement> appiumDriver, String locator, String nameAtribute) {
         return findElementByXpath(appiumDriver, locator).getAttribute(nameAtribute);
     }
 
-    protected String getAttribute(AndroidDriver<MobileElement> appiumDriver, String locator, String nameAtribute, String... value) {
+    protected String getAttribute(AppiumDriver<MobileElement> appiumDriver, String locator, String nameAtribute, String... value) {
         return findElementByXpath(appiumDriver, locator, value).getAttribute(nameAtribute);
     }
 
@@ -213,23 +200,23 @@ public class BasePage {
         return String.format("%,d", money);
     }
 
-    public String getContentdescAtribute(AndroidDriver<MobileElement> appiumDriver, String locator) {
+    public String getContentdescAtribute(AppiumDriver<MobileElement> appiumDriver, String locator) {
         return getAttribute(appiumDriver, locator, "content-desc");
     }
 
-    public String getContentdescAtribute(AndroidDriver<MobileElement> appiumDriver, String locator, String... value) {
+    public String getContentdescAtribute(AppiumDriver<MobileElement> appiumDriver, String locator, String... value) {
         return getAttribute(appiumDriver, locator, "content-desc", value);
     }
 
-    public String getTextAtribute(AndroidDriver<MobileElement> appiumDriver, String locator) {
+    public String getTextAtribute(AppiumDriver<MobileElement> appiumDriver, String locator) {
         return getAttribute(appiumDriver, locator, "text");
     }
 
-    public String getTextAtribute(AndroidDriver<MobileElement> appiumDriver, String locator, String... value) {
+    public String getTextAtribute(AppiumDriver<MobileElement> appiumDriver, String locator, String... value) {
         return getAttribute(appiumDriver, locator, "text", value);
     }
 
-    protected boolean isDisplayed(AndroidDriver<MobileElement> appiumDriver, String locator) {
+    protected boolean isDisplayed(AppiumDriver<MobileElement> appiumDriver, String locator) {
         try {
             return findElementByXpath(appiumDriver, locator).isDisplayed();
         } catch (Exception e) {
@@ -237,11 +224,11 @@ public class BasePage {
         }
     }
 
-    protected boolean isDisplayed(AndroidDriver<MobileElement> appiumDriver, String locator, String... value) {
+    protected boolean isDisplayed(AppiumDriver<MobileElement> appiumDriver, String locator, String... value) {
         return findElementByXpath(appiumDriver, locator, value).isDisplayed();
     }
 
-    protected boolean isNotDisplayed(AndroidDriver<MobileElement> appiumDriver, String locator) {
+    protected boolean isNotDisplayed(AppiumDriver<MobileElement> appiumDriver, String locator) {
         try {
             return findElementsByXpath(appiumDriver, locator).isEmpty();
         } catch (Exception e) {
@@ -249,7 +236,7 @@ public class BasePage {
         }
     }
 
-    protected boolean isNotDisplayed(AndroidDriver<MobileElement> appiumDriver, String locator, String... value) {
+    protected boolean isNotDisplayed(AppiumDriver<MobileElement> appiumDriver, String locator, String... value) {
         try {
             return findElementsByXpath(appiumDriver, locator, value).isEmpty();
         } catch (Exception e) {
@@ -257,7 +244,7 @@ public class BasePage {
         }
     }
 
-    protected void longPress(AndroidDriver<MobileElement> appiumDriver) {
+    protected void longPress(AppiumDriver<MobileElement> appiumDriver) {
         Dimension size = appiumDriver.manage().window().getSize();
         int starty = (int) (size.height * 0.5);
         int startx = (int) (size.width * 0.5);
@@ -267,13 +254,13 @@ public class BasePage {
                 .release().perform();
     }
 
-    protected void swipe(AndroidDriver<MobileElement> appiumDriver, int startx, int starty, int endx, int endy) {
+    protected void swipe(AppiumDriver<MobileElement> appiumDriver, int startx, int starty, int endx, int endy) {
         new TouchAction(appiumDriver).longPress(PointOption.point(startx, starty))
                 .moveTo(PointOption.point(endx, endy))
                 .release().perform();
     }
 
-    protected void swipeMobileUp(AndroidDriver<MobileElement> appiumDriver) {
+    protected void swipeMobileUp(AppiumDriver<MobileElement> appiumDriver) {
         Dimension size = appiumDriver.manage().window().getSize();
         int starty = (int) (size.height * 0.8);
         int endy = (int) (size.height * 0.1);
@@ -281,7 +268,7 @@ public class BasePage {
         swipe(appiumDriver, starx, starty, starx, endy);
     }
 
-    protected void swipeMobileDown(AndroidDriver<MobileElement> appiumDriver) {
+    protected void swipeMobileDown(AppiumDriver<MobileElement> appiumDriver) {
         Dimension size = appiumDriver.manage().window().getSize();
         int starty = (int) (size.height * 0.8);
         int endy = (int) (size.height * 0.3);
@@ -289,7 +276,7 @@ public class BasePage {
         swipe(appiumDriver, starx, endy, starx, starty);
     }
 
-    protected void scrollMenu(AndroidDriver<MobileElement> appiumDriver, WebElement element) {
+    protected void scrollMenu(AppiumDriver<MobileElement> appiumDriver, WebElement element) {
         Dimension size = element.getSize();
         int starty = (int) (element.getLocation().getY() + Math.round(size.getHeight() * 0.9));
         int endy = (int) (element.getLocation().getY() + Math.round(size.getHeight() * 0.1));
@@ -297,7 +284,7 @@ public class BasePage {
         swipe(appiumDriver, starx, starty, starx, endy);
     }
 
-    protected void swipeItemRightToLeft(AndroidDriver<MobileElement> appiumDriver, String locator) {
+    protected void swipeItemRightToLeft(AppiumDriver<MobileElement> appiumDriver, String locator) {
         WebElement element = findElementByXpath(appiumDriver, locator);
         Dimension size = element.getSize();
         int startX = (int) (element.getLocation().getX() + Math.round(size.getWidth() * 0.7));
@@ -306,7 +293,7 @@ public class BasePage {
         swipe(appiumDriver, startX, startY, endX, startY);
     }
 
-    protected void swipeItemUp(AndroidDriver<MobileElement> appiumDriver, String locator) {
+    protected void swipeItemUp(AppiumDriver<MobileElement> appiumDriver, String locator) {
         WebElement element = findElementByXpath(appiumDriver, locator);
         Dimension size = element.getSize();
         int startX = (int) (element.getLocation().getX() + Math.round(size.getWidth() * 0.5));
@@ -315,7 +302,7 @@ public class BasePage {
         swipe(appiumDriver, startX, startY, startX, endY);
     }
 
-    protected void swipeItemDown(AndroidDriver<MobileElement> appiumDriver, String locator) {
+    protected void swipeItemDown(AppiumDriver<MobileElement> appiumDriver, String locator) {
         WebElement element = findElementByXpath(appiumDriver, locator);
         Dimension size = element.getSize();
         int startX = (int) (element.getLocation().getX() + Math.round(size.getWidth() * 0.5));
@@ -324,7 +311,7 @@ public class BasePage {
         swipe(appiumDriver, startX, endY, startX, startY);
     }
 
-    protected void swipeItemRightToLeft(AndroidDriver<MobileElement> appiumDriver, String locator, String... value) {
+    protected void swipeItemRightToLeft(AppiumDriver<MobileElement> appiumDriver, String locator, String... value) {
         WebElement element = findElementByXpath(appiumDriver, locator, value);
         Dimension size = element.getSize();
         int startX = (int) (element.getLocation().getX() + Math.round(size.getWidth() * 0.7));
@@ -333,7 +320,7 @@ public class BasePage {
         swipe(appiumDriver, startX, startY, endX, startY);
     }
 
-    protected void scrollToElement(AndroidDriver<MobileElement> appiumDriver, String locator) {
+    protected void scrollToElement(AppiumDriver<MobileElement> appiumDriver, String locator) {
         WebElement element = null;
         boolean check = false;
         do {
@@ -351,7 +338,7 @@ public class BasePage {
         } while (!check);
     }
 
-    protected void scrollToElement(AndroidDriver<MobileElement> appiumDriver, String locator, String... value) {
+    protected void scrollToElement(AppiumDriver<MobileElement> appiumDriver, String locator, String... value) {
         setImplicitlyWait(appiumDriver, GlobalVariables.SHORT_TIME_OUT);
         WebElement element = null;
         boolean check = false;
@@ -370,7 +357,7 @@ public class BasePage {
         setImplicitlyWait(appiumDriver, GlobalVariables.TIME_OUT);
     }
 
-    protected void scrollMobileUpToElement(AndroidDriver<MobileElement> appiumDriver, String locator, String... value) {
+    protected void scrollMobileUpToElement(AppiumDriver<MobileElement> appiumDriver, String locator, String... value) {
         setImplicitlyWait(appiumDriver, GlobalVariables.SHORT_TIME_OUT);
         WebElement element = null;
         boolean check = false;
@@ -389,7 +376,7 @@ public class BasePage {
         setImplicitlyWait(appiumDriver, GlobalVariables.TIME_OUT);
     }
 
-    protected void scrollUpToElement(AndroidDriver<MobileElement> appiumDriver, String locatorItem, String locator) {
+    protected void scrollUpToElement(AppiumDriver<MobileElement> appiumDriver, String locatorItem, String locator) {
         WebElement element = null;
         boolean check = false;
         do {
@@ -426,12 +413,12 @@ public class BasePage {
 
     protected String generateNameCustomer() {
         Faker faker = new Faker();
-        return (faker.name().fullName() + faker.name().firstName()).replace("'","");
+        return (faker.name().fullName() + faker.name().firstName()).replace("'", "");
     }
 
     protected String generateProductName() {
         Faker faker = new Faker();
-        return faker.commerce().productName().replace("'","");
+        return faker.commerce().productName().replace("'", "");
     }
 
     protected String generateEmail() {
