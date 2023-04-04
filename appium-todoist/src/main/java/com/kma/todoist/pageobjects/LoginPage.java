@@ -13,6 +13,11 @@ public class LoginPage extends BasePage {
         this.appiumDriver = appiumDriver;
     }
 
+    public void loginApp(){
+        clickToContinueWithGoogleButton();
+        clickToAccount();
+    }
+
     public void clickToContinueWithGoogleButton() {
         clickToElement(appiumDriver, LoginPageUI.CONTINUE_WITH_GOOGLE_BTN);
     }

@@ -1,5 +1,7 @@
 package com.kma.todoist.factorydevice;
 
+import com.kma.todoist.pageobjects.LoginPage;
+import com.kma.todoist.pageobjects.PageGeneratorManager;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -11,12 +13,15 @@ import static com.kma.todoist.helper.LoadDevicesConfig.LOAD_DEVICES_CONFIG;
 
 public class AndroidRealDeviceDriver implements DeviceFactory {
     private AppiumDriver<MobileElement> driver;
+//    LoginPage loginPage;
 
     @Override
     public AppiumDriver<MobileElement> getMobileDriver() {
         DesiredCapabilities caps = getDesiredCapabilities();
         try {
             driver = new AppiumDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), caps);
+            LoginPage loginPage = PageGeneratorManager.getLoginPage(driver);
+            loginPage.loginApp();
         } catch (MalformedURLException e) {
             e.printStackTrace();
             throw new RuntimeException("Error create appium session");

@@ -1,4 +1,3 @@
-@check
 Feature: Kiểm tra login app
 
   Scenario: Login app

@@ -1,4 +1,4 @@
-package com.kma.todoist.cucumber.stepdefinitions;
+package com.kma.todoist.cucumber.stepdefinitions.login;
 
 import com.kma.todoist.common.BaseSteps;
 import com.kma.todoist.cucumber.Hooks;
