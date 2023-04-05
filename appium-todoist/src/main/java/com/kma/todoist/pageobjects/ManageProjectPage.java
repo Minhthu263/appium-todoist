@@ -25,14 +25,42 @@ public class ManageProjectPage extends BasePage {
     }
 
     public void verifyCreateProjectSuccessful(String projectName) {
-//        Assert.assertEquals(getText(appiumDriver,ManageProjectPageUI.ADD_PROJECT_ICON), projectName);
+        Assert.assertEquals(getText(appiumDriver,ManageProjectPageUI.PROJECT_NAME_LABEL), projectName);
     }
 
     public void clickToColorButton() {
-//        clickToElement(appiumDriver, ManageProjectPageUI.);
+        clickToElement(appiumDriver, ManageProjectPageUI.COLOR_BUTTON);
     }
 
     public void clickChooseColor(String color) {
-//        clickToElement(appiumDriver, ManageProjectPageUI.);
+        clickToElement(appiumDriver, ManageProjectPageUI.DYNAMIC_CHOOSE_BUTTON, color);
+    }
+
+    public void clickToParentButton() {
+        clickToElement(appiumDriver, ManageProjectPageUI.PARENT_BUTTON);
+    }
+
+    public void clickChooseParent(String parent) {
+        clickToElement(appiumDriver, ManageProjectPageUI.DYNAMIC_CHOOSE_BUTTON, parent);
+    }
+
+    public void clickChooseFavorite() {
+        clickToElement(appiumDriver, ManageProjectPageUI.FAVORITE_BUTTON);
+    }
+
+    public void clickChooseViewBoard() {
+        clickToElement(appiumDriver, ManageProjectPageUI.VIEW_BOARD_BUTTON);
+    }
+
+    public void clickToOption(String projectName) {
+        clickToElement(appiumDriver, ManageProjectPageUI.OPTION_BUTTON,projectName);
+    }
+
+    public void clickToArchiveOption() {
+        clickToElement(appiumDriver, ManageProjectPageUI.ARCHIVE_OPTION_BUTTON);
+    }
+
+    public void clickToArchiveButton() {
+        clickToElement(appiumDriver, ManageProjectPageUI.ARCHIVE_BUTTON);
     }
 }

@@ -51,4 +51,31 @@ public class ManageProjectsStepdefs extends BaseSteps {
         manageProject.clickToColorButton();
         manageProject.clickChooseColor(color);
     }
+
+    @And("I choose Parent with {string}")
+    public void iChooseParentWith(String parent) {
+        manageProject.clickToParentButton();
+        manageProject.clickChooseParent(parent);
+    }
+
+    @And("I choose Favorite")
+    public void iChooseFavorite() {
+        manageProject.clickChooseFavorite();
+    }
+
+    @And("I choose View Board")
+    public void iChooseViewBoard() {
+        manageProject.clickChooseViewBoard();
+    }
+
+    @Then("Verify add archive successful")
+    public void verifyAddArchiveSuccessful() {
+    }
+
+    @When("I click add project to Archive with project {string}")
+    public void iClickAddProjectToArchiveWithProject(String projectName) {
+        manageProject.clickToOption(projectName);
+        manageProject.clickToArchiveOption();
+        manageProject.clickToArchiveButton();
+    }
 }

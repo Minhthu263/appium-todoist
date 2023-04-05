@@ -15,7 +15,7 @@ Feature: Thêm mới project
     When I click + Add project
     And I input Project Name with "số 2"
     And I choose Color with "Red"
-    And I choose Parent with "Task"
+    And I choose Parent with "Task mới"
     And I choose Favorite
     And I choose View Board
     And I click to V icon
