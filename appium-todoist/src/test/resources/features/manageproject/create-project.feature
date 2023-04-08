@@ -1,5 +1,8 @@
-@check
+
 Feature: Thêm mới project
+
+  Background:
+    Given Login in app
 
   Scenario: Thêm mới dự án thành công khi nhập tên
     Given I click menu bar
