@@ -24,6 +24,5 @@ public class LoginPage extends BasePage {
 
     public void clickToAccount() {
         clickToElement(appiumDriver, LoginPageUI.ACCOUNT_BTN);
-
     }
 }

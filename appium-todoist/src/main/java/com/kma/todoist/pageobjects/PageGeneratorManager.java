@@ -18,4 +18,7 @@ public class PageGeneratorManager {
     public static ManageProjectPage getManageProjectPage(AppiumDriver driver) {
         return new ManageProjectPage(driver);
     }
+    public static ManageTaskPage getManageTaskPage(AppiumDriver driver) {
+        return new ManageTaskPage(driver);
+    }
 }

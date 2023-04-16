@@ -105,6 +105,17 @@ public class Hooks extends BaseSteps {
         return lastestImg.toPath();
     }
 
+    public static void tearDownApp(Scenario scenario) throws IOException {
+        if (scenario.isFailed()) {
+            log.info("------------- " + scenario.getName() + " -------------" + scenario.getStatus());
+            log.info("------------- DRIVER DOWN -------------");
+//            driver.closeApp();
+            driver = null;
+        } else {
+            log.info("------------- " + scenario.getName() + " -------------" + scenario.getStatus());
+        }
+    }
+
 //    public static void ScreenShot() {
 //        ReportPortalMessage message = null;
 //        String folderName = "screenshot";

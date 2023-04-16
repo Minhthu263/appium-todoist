@@ -78,4 +78,9 @@ public class ManageProjectsStepdefs extends BaseSteps {
         manageProject.clickToArchiveOption();
         manageProject.clickToArchiveButton();
     }
+
+    @Then("Kill app")
+    public void killApp() {
+        appiumDriver.closeApp();
+    }
 }
