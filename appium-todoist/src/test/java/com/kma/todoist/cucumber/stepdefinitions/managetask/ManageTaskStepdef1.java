@@ -8,12 +8,12 @@ import com.kma.todoist.pageobjects.PageGeneratorManager;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 
-public class ManageTaskStepdef extends BaseSteps {
+public class ManageTaskStepdef1 extends BaseSteps {
     AppiumDriver<MobileElement> appiumDriver;
     TestContext testContext;
     ManageProjectPage manageProject;
 
-    public ManageTaskStepdef(TestContext context) {
+    public ManageTaskStepdef1(TestContext context) {
         super(context);
         this.appiumDriver = Hooks.openAndQuitApp();
         manageProject = PageGeneratorManager.getManageProjectPage(appiumDriver);
