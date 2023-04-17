@@ -48,6 +48,7 @@ public class LoginStepdefs extends BaseSteps {
     public void verifyLoginSuccessful() {
         log.info("Login - STEP - Verify login successful");
         Assert.assertTrue(isDisplayed(appiumDriver,LoginPageUI.TODAY_LABEL));
+        appiumDriver.closeApp();
 //        Hooks.close();
 //        Hooks.tearDownApp(Scenario);
     }
@@ -90,11 +91,19 @@ public class LoginStepdefs extends BaseSteps {
 
     @Then("Verify message login unsuccessful")
     public void verifyMessageLoginUnsuccessful() {
+        log.info("Login - STEP - Verify message login unsuccessful");
+        isDisplayed(appiumDriver, LoginPageUI.LOGIN_BUTTON);
     }
 
     @And("I click choose account")
     public void iClickChooseAccount() {
         log.info("Login - STEP - Click choose account");
         clickToElement(appiumDriver, LoginPageUI.ACCOUNT_BTN);
+    }
+
+    @Then("Verify button Login is disable")
+    public void verifyButtonLoginIsDisable() {
+        log.info("Login - STEP - Verify button Login is disable");
+        isNotDisplayed(appiumDriver, LoginPageUI.LOGIN_BUTTON);
     }
 }

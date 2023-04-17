@@ -1,4 +1,4 @@
-@check
+
 Feature: Kiểm tra login app successful
 
   Scenario: Login app with Google

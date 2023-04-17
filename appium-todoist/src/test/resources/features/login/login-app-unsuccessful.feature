@@ -1,10 +1,33 @@
-
+@check
 Feature: Kiểm tra login app unsuccessful
 
-  Scenario Outline: Login app with Email new
+#  Background:
+#    Given I click Continue with more options
+##    And I click Login with Email
+##    And I click to None of the above
+#    Given I click Continue with more options
+#    And I click Login with Email
+#    And I click choose account
+
+  Scenario: Login app with Email available
     Given I click Continue with more options
     And I click Login with Email
-    And I click to None of the above
+    And I click choose account
+    When I input password with "123"
+    And I click to Login
+    Then Verify message login unsuccessful
+
+  Scenario: Login app with Email new
+    When I input username with ""
+    And I input password with "123"
+    Then Verify button Login is disable
+
+  Scenario: Login app with Email new
+    When I input username with "1@g.vn"
+    And I input password with ""
+    Then Verify button Login is disable
+
+  Scenario Outline: Login app with Email new
     When I input username with "<username>"
     And I input password with "<password>"
     And I click to Login
@@ -16,26 +39,3 @@ Feature: Kiểm tra login app unsuccessful
       | minhthu@gmail.com      | 123      |
       | taminhthu263@gmail.com | 123      |
 
-  Scenario: Login app with Email new
-    Given I click Continue with more options
-    And I click Login with Email
-    And I click to None of the above
-    When I input username with ""
-    And I input password with "123"
-    Then Verify button Login is disable
-
-  Scenario: Login app with Email new
-    Given I click Continue with more options
-    And I click Login with Email
-    And I click to None of the above
-    When I input username with "1@g.vn"
-    And I input password with ""
-    Then Verify button Login is disable
-
-  Scenario: Login app with Email available
-    Given I click Continue with more options
-    And I click Login with Email
-    And I click choose account
-    When I input password with "123"
-    And I click to Login
-    Then Verify message login unsuccessful
