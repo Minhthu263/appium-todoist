@@ -73,8 +73,8 @@ public class Hooks extends BaseSteps {
             scenario.attach(Files.readAllBytes(lastestImage()), "png", scenario.getName());
             log.info("------------- " + scenario.getName() + " -------------" + scenario.getStatus());
             log.info("------------- DRIVER DOWN -------------");
-//            driver.closeApp();
-            driver = null;
+            driver.closeApp();
+//            driver = null;
         } else {
 //            addScreenshot();
             log.info("------------- " + scenario.getName() + " -------------" + scenario.getStatus());
@@ -86,6 +86,7 @@ public class Hooks extends BaseSteps {
         try {
             if (driver != null) {
                 openAndQuitApp().quit();
+                driver=null;
                 log.info("------------- Closed the browser -------------");
             }
         } catch (UnreachableBrowserException e) {

@@ -13,6 +13,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.qameta.allure.Step;
 import org.testng.Assert;
 
 public class LoginStepdefs extends BaseSteps {
@@ -48,9 +49,8 @@ public class LoginStepdefs extends BaseSteps {
     public void verifyLoginSuccessful() {
         log.info("Login - STEP - Verify login successful");
         Assert.assertTrue(isDisplayed(appiumDriver,LoginPageUI.TODAY_LABEL));
-        appiumDriver.closeApp();
-//        Hooks.close();
-//        Hooks.tearDownApp(Scenario);
+//        appiumDriver.closeApp();
+        Hooks.close();
     }
 
     @And("I click Login with Email")
@@ -60,6 +60,7 @@ public class LoginStepdefs extends BaseSteps {
     }
 
     @Given("I click Continue with more options")
+    @Step
     public void iClickContinueWithMoreOptions() {
         log.info("Login - STEP - Click Continue with more options");
         clickToElement(appiumDriver, LoginPageUI.CONTINUE_WITH_MORE_OPTIONS_BUTTON);

@@ -16,5 +16,5 @@ Feature: Thêm mới task ngày hôm nay
     Then Verify add task
 
     Examples:
-      | taskName | description | priority | label | projectName |
-      | 1        | 1           | 1        | 1     | 1           |
+      | taskName | description | priority | label | projectName   |
+      | test     | mô tả       | 1        | Salon | Salon Booking |

@@ -22,4 +22,3 @@ Feature: Kiểm tra login app successful
     And I input password with "263@1234"
     And I click to Login
     Then Verify login successful
-    Then Kill app

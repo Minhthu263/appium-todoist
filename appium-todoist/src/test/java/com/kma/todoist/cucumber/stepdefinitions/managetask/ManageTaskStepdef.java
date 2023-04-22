@@ -42,19 +42,27 @@ public class ManageTaskStepdef extends BaseSteps {
         String label = data.get("label");
         String projectName = data.get("projectName");
 
-        manageTask.inputToTaskNameTextbox(taskName);
+//        manageTask.inputToTaskNameTextbox(taskName);
 
-        if(description != null){
-            manageTask.inputToDescriptionTextbox(description);
-        }
+        String value = taskName;
         if(priority != null){
-            manageTask.choosePrority(priority);
+//            manageTask.choosePrority(priority);
+            value += " !!" + priority;
+//            manageTask.inputToTaskNameTextbox(value);
         }
         if(label != null){
-            manageTask.chooseLabel(label);
+//            manageTask.chooseLabel(label);
+            value += " @" + label;
+//            manageTask.inputToTaskNameTextbox(value);
         }
         if(projectName != null){
-            manageTask.chooseProjectForTask(projectName);
+//            manageTask.chooseProjectForTask(projectName);
+            value += " #" + projectName;
+//            manageTask.inputToTaskNameTextbox(value);
+        }
+        manageTask.inputToTaskNameTextbox(value);
+        if(description != null){
+            manageTask.inputToDescriptionTextbox(description);
         }
 
         Task task = new Task(taskName, description, priority, label, projectName);

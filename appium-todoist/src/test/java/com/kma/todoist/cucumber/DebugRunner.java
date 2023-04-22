@@ -8,7 +8,7 @@ import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
         features = "src/test/resources/features",
-//        plugin = {"pretty", "com.epam.reportportal.cucumber.ScenarioReporter"},
+        plugin = { "pretty" },
         tags = "@check"
 )
 public class DebugRunner extends AbstractTestNGCucumberTests {
