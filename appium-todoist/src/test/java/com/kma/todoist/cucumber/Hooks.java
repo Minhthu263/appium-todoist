@@ -1,27 +1,23 @@
 package com.kma.todoist.cucumber;
 
 //import com.epam.reportportal.message.ReportPortalMessage;
+
 import com.kma.todoist.common.BaseSteps;
 import com.kma.todoist.common.GlobalVariables;
 import com.kma.todoist.factorydevice.AndroidRealDeviceDriver;
 import com.kma.todoist.helper.TestContext;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.UnreachableBrowserException;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -40,15 +36,51 @@ public class Hooks extends BaseSteps {
     }
 
     @Before
+    public synchronized static AppiumDriver<MobileElement> openAndQuitApp(Scenario scenario) {
+        if (driver == null) {
+            boolean isLoginTestCase = scenario.getSourceTagNames().contains("@login");
+            String device = System.getProperty("device");
+            if (isLoginTestCase) {
+                try {
+                    if (device.startsWith("android")) {
+                        driver = new AndroidRealDeviceDriver().getMobileDriverWithoutLogin();
+                    } else {
+                        log.info("-----------Not support device---------------");
+                    }
+                } finally {
+                    Runtime.getRuntime().addShutdownHook(new Thread(new BrowserCleanup()));
+                }
+            } else {
+                try {
+                    if (device.startsWith("android")) {
+                        driver = new AndroidRealDeviceDriver().getMobileDriver();
+                    } else {
+                        log.info("-----------Not support device---------------");
+                    }
+                } finally {
+                    Runtime.getRuntime().addShutdownHook(new Thread(new BrowserCleanup()));
+                }
+            }
+
+            //      log.info("-----------Start the device---------------");
+            driver.manage().timeouts().implicitlyWait(GlobalVariables.TIME_OUT, TimeUnit.SECONDS);
+        }
+        File path = new File(String.join(File.separator, System.getProperty("user.dir"), "screenshot"));
+        try {
+            FileUtils.cleanDirectory(path);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return driver;
+    }
+
     public synchronized static AppiumDriver<MobileElement> openAndQuitApp() {
         if (driver == null) {
             String device = System.getProperty("device");
-
             try {
                 if (device.startsWith("android")) {
                     driver = new AndroidRealDeviceDriver().getMobileDriver();
-                }
-                else {
+                } else {
                     log.info("-----------Not support device---------------");
                 }
             } finally {
@@ -65,6 +97,7 @@ public class Hooks extends BaseSteps {
         }
         return driver;
     }
+
 
     @After
     public void tearDown(Scenario scenario) throws IOException {

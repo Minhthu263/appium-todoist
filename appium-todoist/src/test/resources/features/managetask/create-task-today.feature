@@ -1,8 +1,8 @@
-
+@check
 Feature: Thêm mới task ngày hôm nay
-
-  Background:
-    Given Login in app
+#
+#  Background:
+#    Given Login in app
 
   Scenario Outline: Tạo task với trường requi
     Given I click icon Add Task
@@ -18,3 +18,4 @@ Feature: Thêm mới task ngày hôm nay
     Examples:
       | taskName | description | priority | label | projectName   |
       | test     | mô tả       | 1        | Salon | Salon Booking |
+      | test     | null        | null     | nul   | null          |

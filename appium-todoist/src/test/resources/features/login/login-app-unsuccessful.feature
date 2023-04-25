@@ -1,4 +1,4 @@
-
+@login @check
 Feature: Kiểm tra login app unsuccessful
 
 #  Background:
@@ -17,16 +17,6 @@ Feature: Kiểm tra login app unsuccessful
     And I click to Login
     Then Verify message login unsuccessful
 
-  Scenario: Login app with Email new
-    When I input username with ""
-    And I input password with "123"
-    Then Verify button Login is disable
-
-  Scenario: Login app with Email new2
-    When I input username with "1@g.vn"
-    And I input password with ""
-    Then Verify button Login is disable
-
   Scenario Outline: Login app with Email new3
     When I input username with "<username>"
     And I input password with "<password>"
@@ -38,4 +28,17 @@ Feature: Kiểm tra login app unsuccessful
       | minhthu                | 123      |
       | minhthu@gmail.com      | 123      |
       | taminhthu263@gmail.com | 123      |
+
+  Scenario: Login app with Email new
+    When I input username with ""
+    And I input password with "123"
+    Then Verify button Login is disable
+
+  Scenario: Login app with Email new2
+    When I input username with "1@g.vn"
+    And I input password with ""
+    Then Verify button Login is disable
+    And Close app
+
+
 

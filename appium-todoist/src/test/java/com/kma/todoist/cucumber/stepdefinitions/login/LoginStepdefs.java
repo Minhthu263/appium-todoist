@@ -8,7 +8,6 @@ import com.kma.todoist.pageobjects.LoginPage;
 import com.kma.todoist.pageobjects.PageGeneratorManager;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -106,5 +105,10 @@ public class LoginStepdefs extends BaseSteps {
     public void verifyButtonLoginIsDisable() {
         log.info("Login - STEP - Verify button Login is disable");
         isNotDisplayed(appiumDriver, LoginPageUI.LOGIN_BUTTON);
+    }
+
+    @And("Close app")
+    public void closeApp() {
+        Hooks.close();
     }
 }

@@ -13,6 +13,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.testng.asserts.SoftAssert;
 
 import java.util.Map;
 
@@ -20,6 +21,8 @@ public class ManageTaskStepdef extends BaseSteps {
     AppiumDriver<MobileElement> appiumDriver;
     TestContext testContext;
     ManageTaskPage manageTask;
+
+    SoftAssert softAssert = new SoftAssert();
 
     public ManageTaskStepdef(TestContext context) {
         super(context);
@@ -30,6 +33,7 @@ public class ManageTaskStepdef extends BaseSteps {
 
     @Given("I click icon Add Task")
     public void i_click_icon_add_task() {
+        log.info("ManageTask - STEP - Click icon Add task");
         clickToElement(appiumDriver, ManageTaskUI.ADD_TASK_ICON);
     }
 
@@ -46,19 +50,13 @@ public class ManageTaskStepdef extends BaseSteps {
 
         String value = taskName;
         if(priority != null){
-//            manageTask.choosePrority(priority);
             value += " !!" + priority;
-//            manageTask.inputToTaskNameTextbox(value);
         }
         if(label != null){
-//            manageTask.chooseLabel(label);
             value += " @" + label;
-//            manageTask.inputToTaskNameTextbox(value);
         }
         if(projectName != null){
-//            manageTask.chooseProjectForTask(projectName);
             value += " #" + projectName;
-//            manageTask.inputToTaskNameTextbox(value);
         }
         manageTask.inputToTaskNameTextbox(value);
         if(description != null){
@@ -71,10 +69,31 @@ public class ManageTaskStepdef extends BaseSteps {
 
     @And("I click Send button")
     public void iClickSendButton() {
+        log.info("ManageTask - STEP - Send button");
         manageTask.clickToSendButton();
+        manageTask.closeAddTask();
     }
 
     @Then("Verify add task")
     public void verifyAddTask() {
+        log.info("ManageTask - STEP - Verify add task");
+        Task task = testContext.scenarioContext.getContext("task");
+        String taskName = task.getTaskName();
+
+        checkEqualsSoft(softAssert, getTextAtribute(appiumDriver, ManageTaskUI.TASK_NAME_LABEL, taskName), taskName);
+        if (task.getPriority() != null) {
+//            checkEqualsSoft(softAssert,getTextAtribute(appiumDriver, ManageTaskUI.PRIORITY_LABEL, task.getTaskName()), task.getPriority());
+        }
+        if (task.getLabel() != null) {
+            checkEqualsSoft(softAssert, getTextAtribute(appiumDriver, ManageTaskUI.LABEL_LABEL, taskName), task.getLabel());
+        }
+        if (task.getProjectName() != null) {
+            checkEqualsSoft(softAssert, getTextAtribute(appiumDriver, ManageTaskUI.PROJECT_LABEL, taskName), task.getProjectName());
+        }
+
+        if (task.getDescription() != null) {
+            checkEqualsSoft(softAssert, getTextAtribute(appiumDriver, ManageTaskUI.DESCRIPTION_LABEL, taskName), task.getDescription());
+        }
+        softAssert.assertAll();
     }
 }

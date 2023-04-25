@@ -38,4 +38,9 @@ public class ManageTaskPage extends BasePage {
     public void clickToSendButton() {
         clickToElement(appiumDriver, ManageTaskUI.SEND_TASK_BUTTON);
     }
+
+    public void closeAddTask() {
+//        clickToElement(appiumDriver, ManageTaskUI.TODAY_LABEL);
+        tapToElementByPosition(appiumDriver, ManageTaskUI.TODAY_LABEL);
+    }
 }

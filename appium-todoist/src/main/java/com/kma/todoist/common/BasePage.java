@@ -21,6 +21,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static java.time.Duration.ofMillis;
+
 public class BasePage {
 
     protected static void setImplicitlyWait(AppiumDriver<MobileElement> appiumDriver, long timeout) {
@@ -74,7 +76,6 @@ public class BasePage {
     }
 
     protected void waitForClickable(AppiumDriver<MobileElement> appiumDriver, String locator) {
-
         WebDriverWait wait = new WebDriverWait(appiumDriver, GlobalVariables.TIME_OUT);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(locator)));
     }
@@ -374,6 +375,18 @@ public class BasePage {
             }
         } while (!check);
         setImplicitlyWait(appiumDriver, GlobalVariables.TIME_OUT);
+    }
+
+    protected void tapToElementByPosition(AppiumDriver appiumDriver, String location) {
+        MobileElement element = findElementByXpath(appiumDriver, location);
+        int startX = element.getLocation().getX();
+        int startY = element.getLocation().getY();
+        int x = startX + (element.getSize().getWidth() / 2);
+        int y = startY + (element.getSize().getHeight() / 2);
+        new TouchAction(appiumDriver)
+                .press(PointOption.point(x, y))
+                .waitAction(WaitOptions.waitOptions(ofMillis(100)))
+                .release().perform();
     }
 
     protected void scrollUpToElement(AppiumDriver<MobileElement> appiumDriver, String locatorItem, String locator) {

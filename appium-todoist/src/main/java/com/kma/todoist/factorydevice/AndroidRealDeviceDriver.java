@@ -21,7 +21,18 @@ public class AndroidRealDeviceDriver implements DeviceFactory {
         try {
             driver = new AppiumDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), caps);
             LoginPage loginPage = PageGeneratorManager.getLoginPage(driver);
-//            loginPage.loginApp();
+            loginPage.loginApp();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error create appium session");
+        }
+        return driver;
+    }
+
+    public AppiumDriver<MobileElement> getMobileDriverWithoutLogin() {
+        DesiredCapabilities caps = getDesiredCapabilities();
+        try {
+            driver = new AppiumDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), caps);
         } catch (MalformedURLException e) {
             e.printStackTrace();
             throw new RuntimeException("Error create appium session");
