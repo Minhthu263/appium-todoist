@@ -1,4 +1,4 @@
-@check
+
 Feature: Thêm mới task ngày hôm nay
 #
 #  Background:

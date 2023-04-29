@@ -13,6 +13,9 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import java.util.List;
+import java.util.Map;
+
 public class ManageProjectsStepdefs extends BaseSteps {
     AppiumDriver<MobileElement> appiumDriver;
     TestContext testContext;
@@ -79,11 +82,72 @@ public class ManageProjectsStepdefs extends BaseSteps {
     public void iClickAddProjectToArchiveWithProject(String projectName) {
         manageProject.clickToOption(projectName);
         manageProject.clickToArchiveOption();
-        manageProject.clickToArchiveButton();
+    }
+
+    @And("I choose cancel")
+    public void iChooseCancel() {
+        manageProject.clickToCancelArchiveButton();
     }
 
     @Then("Kill app")
     public void killApp() {
         appiumDriver.closeApp();
+    }
+
+    @When("I click project name with {string}")
+    public void iClickProjectNameWith(String projectName) {
+        manageProject.clickToProjectName(projectName);
+    }
+
+    @And("I click edit project")
+    public void iClickEditProject() {
+        manageProject.clickToMoreIconInToolBar();
+        manageProject.clickToEditButtonInMore();
+    }
+
+    @And("I edit project information")
+    public void iEditProjectInformation(List<Map<String, String>> data) {
+        log.info("ManageProject - STEP - Chỉnh sửa thông tin");
+        String projectNameOld = data.get(0).get("projectNameOld");
+        String projectName = data.get(0).get("projectName");
+        String color = data.get(0).get("color");
+        String parent = data.get(0).get("parent");
+        String favorite = data.get(0).get("favorite");
+        String view = data.get(0).get("view");
+
+        if (projectName!=null){
+            manageProject.inputToProjectNameTextbox(projectName);
+            Project project = new Project(projectName, color);
+            testContext.scenarioContext.setContext(GlobalVariables.CREATE_PROJECT, project);
+        }
+        else {
+            Project project = new Project(projectNameOld, color);
+            testContext.scenarioContext.setContext(GlobalVariables.CREATE_PROJECT, project);
+        }
+        if (color!=null){
+            manageProject.clickToColorButton();
+            manageProject.clickChooseColor(color);
+        }
+        if (parent!=null){
+            manageProject.clickToParentButton();
+            manageProject.clickChooseParent(parent);
+        }
+        if (favorite!=null){
+            manageProject.clickChooseFavorite();
+        }
+        if (view!=null){
+            manageProject.clickChooseViewBoard();
+        }
+
+    }
+
+    @Then("I check edit project successful")
+    public void iCheckEditProjectSuccessful() {
+    }
+
+    @Then("Verify add archive unsuccessful")
+    public void verifyAddArchiveUnsuccessful() {
+        Project project = testContext.scenarioContext.getContext(GlobalVariables.CREATE_PROJECT);
+        manageProject.verifyCreateProjectSuccessful(project.getName());
     }
 }

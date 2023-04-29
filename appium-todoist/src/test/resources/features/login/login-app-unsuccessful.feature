@@ -1,14 +1,6 @@
 @login
 Feature: Kiểm tra login app unsuccessful
 
-#  Background:
-#    Given I click Continue with more options
-##    And I click Login with Email
-##    And I click to None of the above
-#    Given I click Continue with more options
-#    And I click Login with Email
-#    And I click choose account
-
   Scenario: Login app with Email available
     Given I click Continue with more options
     And I click Login with Email

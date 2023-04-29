@@ -60,7 +60,22 @@ public class ManageProjectPage extends BasePage {
         clickToElement(appiumDriver, ManageProjectPageUI.ARCHIVE_OPTION_BUTTON);
     }
 
-    public void clickToArchiveButton() {
-        clickToElement(appiumDriver, ManageProjectPageUI.ARCHIVE_BUTTON);
+    public void clickToAcceptArchiveButton() {
+        clickToElement(appiumDriver, ManageProjectPageUI.ACCEPT_ARCHIVE_BUTTON);
+    }
+    public void clickToCancelArchiveButton() {
+        clickToElement(appiumDriver, ManageProjectPageUI.CANCEL_ARCHIVE_BUTTON);
+    }
+
+    public void clickToProjectName(String projectName) {
+        clickToElement(appiumDriver, ManageProjectPageUI.PROJECT_NAME_BUTTON, projectName);
+    }
+
+    public void clickToMoreIconInToolBar() {
+        clickToElement(appiumDriver, ManageProjectPageUI.MORE_ICON_IN_TOOLBAR);
+    }
+
+    public void clickToEditButtonInMore() {
+        clickToElement(appiumDriver, ManageProjectPageUI.EDIT_PROJECT_BUTTON_IN_MORE);
     }
 }
