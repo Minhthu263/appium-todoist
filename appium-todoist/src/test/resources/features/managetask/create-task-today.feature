@@ -17,5 +17,5 @@ Feature: Thêm mới task ngày hôm nay
 
     Examples:
       | taskName | description | priority | label | projectName   |
-      | test     | mô tả       | 1        | Salon | Salon Booking |
-      | test     | null        | null     | nul   | null          |
+      | task1    | mô tả       | 1        | Salon | Salon Booking |
+      | task2     |             |          |       |               |

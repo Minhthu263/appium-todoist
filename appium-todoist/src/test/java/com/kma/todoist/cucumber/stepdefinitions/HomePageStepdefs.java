@@ -3,6 +3,8 @@ package com.kma.todoist.cucumber.stepdefinitions;
 import com.kma.todoist.common.BaseSteps;
 import com.kma.todoist.cucumber.Hooks;
 import com.kma.todoist.helper.TestContext;
+import com.kma.todoist.interfaces.HomePageUI;
+import com.kma.todoist.interfaces.ManageTaskUI;
 import com.kma.todoist.pageobjects.HomePage;
 import com.kma.todoist.pageobjects.LoginPage;
 import com.kma.todoist.pageobjects.PageGeneratorManager;
@@ -25,10 +27,13 @@ public class HomePageStepdefs extends BaseSteps {
 
     @Given("I click menu bar")
     public void i_click_menu_bar() {
+        log.info("STEP-click menu bar");
+        isDisplayed(appiumDriver, HomePageUI.MORE_OPTION);
         homePage.clickToMenuBar();
     }
     @Given("I click Manage project")
     public void i_click_manage_project() {
+        log.info("STEP-click Manage project");
         homePage.clickToManageProjectsButton();
     }
 

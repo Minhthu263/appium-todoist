@@ -25,10 +25,12 @@ public class ManageProjectsStepdefs extends BaseSteps {
     }
     @When("I click + Add project")
     public void i_click_add_project() {
+        log.info("STEP-I click + Add project");
         manageProject.clickToIconAddProject();
     }
     @When("I input Project Name with {string}")
     public void i_input_project_name_with(String projectName) {
+        log.info("STEP-input Project Name");
         manageProject.inputToProjectNameTextbox(projectName);
 //        testContext.scenarioContext.setContext(GlobalVariables.PROJECT_NAME, projectName);
         Project project = new Project(projectName, null);
@@ -37,6 +39,7 @@ public class ManageProjectsStepdefs extends BaseSteps {
     @When("I click to V icon")
     public void i_click_to_v_icon() {
         manageProject.clickToIconCompleteProject();
+        hideKeyboard(appiumDriver);
     }
 
     @Then("I check create project successful")

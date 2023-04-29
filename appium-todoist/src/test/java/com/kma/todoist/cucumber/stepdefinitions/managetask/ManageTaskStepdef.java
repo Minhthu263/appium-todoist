@@ -34,6 +34,7 @@ public class ManageTaskStepdef extends BaseSteps {
     @Given("I click icon Add Task")
     public void i_click_icon_add_task() {
         log.info("ManageTask - STEP - Click icon Add task");
+        isDisplayed(appiumDriver, ManageTaskUI.TODAY_LABEL);
         clickToElement(appiumDriver, ManageTaskUI.ADD_TASK_ICON);
     }
 

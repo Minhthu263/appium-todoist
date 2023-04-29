@@ -1,4 +1,4 @@
-@login @check
+@login
 Feature: Kiểm tra login app unsuccessful
 
 #  Background:

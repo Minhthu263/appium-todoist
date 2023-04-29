@@ -1,9 +1,6 @@
 
 Feature: Thêm mới project
 
-  Background:
-    Given Login in app
-
   Scenario: Thêm mới dự án thành công khi nhập tên
     Given I click menu bar
     And I click Manage project
@@ -18,7 +15,7 @@ Feature: Thêm mới project
     When I click + Add project
     And I input Project Name with "số 2"
     And I choose Color with "Red"
-    And I choose Parent with "Task mới"
+    And I choose Parent with "Salon Booking"
     And I choose Favorite
     And I choose View Board
     And I click to V icon
