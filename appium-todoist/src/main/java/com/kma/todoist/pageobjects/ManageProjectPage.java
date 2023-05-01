@@ -78,4 +78,40 @@ public class ManageProjectPage extends BasePage {
     public void clickToEditButtonInMore() {
         clickToElement(appiumDriver, ManageProjectPageUI.EDIT_PROJECT_BUTTON_IN_MORE);
     }
+    public void clickToDeleteButtonInMore() {
+        clickToElement(appiumDriver, ManageProjectPageUI.DELETE_PROJECT_BUTTON_IN_MORE);
+    }
+
+    public void clickToTabArchived() {
+        clickToElement(appiumDriver, ManageProjectPageUI.ARCHIVED_TAB);
+    }
+
+    public void verifyProjectIsDisplay(String name) {
+        isDisplayed(appiumDriver,ManageProjectPageUI.PROJECT_NAME_BUTTON,name);
+    }
+
+    public void clickToUnarchiveOption() {
+        clickToElement(appiumDriver, ManageProjectPageUI.UNARCHIVE_OPTION_BUTTON);
+    }
+
+    public void clickToTabActive() {
+        clickToElement(appiumDriver, ManageProjectPageUI.ACTIVE_TAB);
+    }
+
+    public void clickToAcceptUnarchiveButton() {
+        clickToElement(appiumDriver, ManageProjectPageUI.ACCEPT_UNARCHIVE_BUTTON);
+    }
+
+    public void clickToBackIcon() {
+        clickToElement(appiumDriver, ManageProjectPageUI.BACK_ICON);
+    }
+
+    public void clickToOpenMenu() {
+        clickToElement(appiumDriver, ManageProjectPageUI.OPEN_MENU_PROJECT);
+
+    }
+
+    public void clickToCommentOption() {
+        clickToElement(appiumDriver, ManageProjectPageUI.COMMENT_OPTION_BUTTON);
+    }
 }

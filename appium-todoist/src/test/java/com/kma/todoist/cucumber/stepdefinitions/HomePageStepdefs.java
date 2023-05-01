@@ -27,14 +27,14 @@ public class HomePageStepdefs extends BaseSteps {
 
     @Given("I click menu bar")
     public void i_click_menu_bar() {
-        log.info("STEP-click menu bar");
-        isDisplayed(appiumDriver, HomePageUI.MORE_OPTION);
-        homePage.clickToMenuBar();
+            log.info("STEP-click menu bar");
+            isDisplayed(appiumDriver, HomePageUI.MORE_OPTION);
+            homePage.clickToMenuBar();
     }
     @Given("I click Manage project")
     public void i_click_manage_project() {
-        log.info("STEP-click Manage project");
-        homePage.clickToManageProjectsButton();
+            log.info("STEP-click Manage project");
+            homePage.clickToManageProjectsButton();
     }
 
 }

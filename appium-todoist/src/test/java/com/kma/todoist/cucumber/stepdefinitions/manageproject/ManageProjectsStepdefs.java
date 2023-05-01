@@ -5,6 +5,7 @@ import com.kma.todoist.common.GlobalVariables;
 import com.kma.todoist.cucumber.Hooks;
 import com.kma.todoist.helper.TestContext;
 import com.kma.todoist.helper.object.Project;
+import com.kma.todoist.interfaces.ManageProjectPageUI;
 import com.kma.todoist.pageobjects.ManageProjectPage;
 import com.kma.todoist.pageobjects.PageGeneratorManager;
 import io.appium.java_client.AppiumDriver;
@@ -12,6 +13,7 @@ import io.appium.java_client.MobileElement;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.testng.Assert;
 
 import java.util.List;
 import java.util.Map;
@@ -35,7 +37,6 @@ public class ManageProjectsStepdefs extends BaseSteps {
     public void i_input_project_name_with(String projectName) {
         log.info("STEP-input Project Name");
         manageProject.inputToProjectNameTextbox(projectName);
-//        testContext.scenarioContext.setContext(GlobalVariables.PROJECT_NAME, projectName);
         Project project = new Project(projectName, null);
         testContext.scenarioContext.setContext(GlobalVariables.CREATE_PROJECT, project);
     }
@@ -49,7 +50,6 @@ public class ManageProjectsStepdefs extends BaseSteps {
     public void iCheckCreateProjectSuccessful() {
         Project project = testContext.scenarioContext.getContext(GlobalVariables.CREATE_PROJECT);
         manageProject.verifyCreateProjectSuccessful(project.getName());
-//        manageProject.verifyCreateProjectSuccessful(testContext.scenarioContext.getContext(GlobalVariables.PROJECT_NAME));
     }
 
     @And("I choose Color with {string}")
@@ -74,19 +74,23 @@ public class ManageProjectsStepdefs extends BaseSteps {
         manageProject.clickChooseViewBoard();
     }
 
-    @Then("Verify add archive successful")
-    public void verifyAddArchiveSuccessful() {
-    }
-
     @When("I click add project to Archive with project {string}")
     public void iClickAddProjectToArchiveWithProject(String projectName) {
         manageProject.clickToOption(projectName);
         manageProject.clickToArchiveOption();
+        Project project = new Project(projectName, null);
+        testContext.scenarioContext.setContext(GlobalVariables.CREATE_PROJECT, project);
     }
 
     @And("I choose cancel")
     public void iChooseCancel() {
+        log.info("STEP - choose cancel");
         manageProject.clickToCancelArchiveButton();
+    }
+
+    @And("I choose archive")
+    public void iChooseArchive() {
+        manageProject.clickToAcceptArchiveButton();
     }
 
     @Then("Kill app")
@@ -148,6 +152,163 @@ public class ManageProjectsStepdefs extends BaseSteps {
     @Then("Verify add archive unsuccessful")
     public void verifyAddArchiveUnsuccessful() {
         Project project = testContext.scenarioContext.getContext(GlobalVariables.CREATE_PROJECT);
-        manageProject.verifyCreateProjectSuccessful(project.getName());
+        manageProject.verifyProjectIsDisplay(project.getName());
+    }
+
+    @Then("Verify add archive successful")
+    public void verifyAddArchiveSuccessful() {
+        manageProject.clickToTabArchived();
+        Project project = testContext.scenarioContext.getContext(GlobalVariables.CREATE_PROJECT);
+        manageProject.verifyProjectIsDisplay(project.getName());
+    }
+
+    @And("I click tab Archived")
+    public void iClickTabArchived() {
+        manageProject.clickToTabArchived();
+    }
+
+    @When("I click add project to Unarchive with project {string}")
+    public void iClickAddProjectToUnarchiveWithProject(String projectName) {
+        manageProject.clickToOption(projectName);
+        manageProject.clickToUnarchiveOption();
+        Project project = new Project(projectName, null);
+        testContext.scenarioContext.setContext(GlobalVariables.CREATE_PROJECT, project);
+    }
+
+    @Then("Verify add unarchive unsuccessful")
+    public void verifyAddUnarchiveUnsuccessful() {
+        Project project = testContext.scenarioContext.getContext(GlobalVariables.CREATE_PROJECT);
+        manageProject.verifyProjectIsDisplay(project.getName());
+    }
+
+    @Then("Verify add unarchive successful")
+    public void verifyAddUnarchiveSuccessful() {
+        manageProject.clickToTabActive();
+        Project project = testContext.scenarioContext.getContext(GlobalVariables.CREATE_PROJECT);
+        manageProject.verifyProjectIsDisplay(project.getName());
+    }
+
+    @And("I choose unarchive")
+    public void iChooseUnarchive() {
+        manageProject.clickToAcceptUnarchiveButton();
+    }
+
+    @And("I back to home page")
+    public void iBackToHomePage() {
+        manageProject.clickToBackIcon();
+    }
+
+    @When("I click add project to Archive")
+    public void iClickAddProjectToArchive() {
+        String projectName = getTextAtribute(appiumDriver, ManageProjectPageUI.GET_NAME_PROJECT);
+        manageProject.clickToOpenMenu();
+        manageProject.clickToArchiveOption();
+        Project project = new Project(projectName, null);
+        testContext.scenarioContext.setContext(GlobalVariables.CREATE_PROJECT, project);
+    }
+
+    @When("I click add project to Unarchive")
+    public void iClickAddProjectToUnarchive() {
+        String projectName = getTextAtribute(appiumDriver, ManageProjectPageUI.GET_NAME_PROJECT);
+        manageProject.clickToOpenMenu();
+        manageProject.clickToUnarchiveOption();
+        Project project = new Project(projectName, null);
+        testContext.scenarioContext.setContext(GlobalVariables.CREATE_PROJECT, project);
+
+    }
+
+    @When("I click Comment project")
+    public void iClickCommentProject() {
+        manageProject.clickToOpenMenu();
+        manageProject.clickToCommentOption();
+    }
+
+    @Then("Verify comment successful")
+    public void verifyCommentSuccessful() {
+        String comment = testContext.scenarioContext.getContext(GlobalVariables.COMMENT);
+        Assert.assertEquals(getTextAtribute(appiumDriver, ManageProjectPageUI.COMMENT_LABEL), comment);
+    }
+
+    @And("I input comment with {string}")
+    public void iInputCommentWith(String comment) {
+//        tapThenSenkeysToElement(appiumDriver, ManageProjectPageUI.ADD_A_COMMENT,comment);
+        clickToElement(appiumDriver, ManageProjectPageUI.ADD_A_COMMENT_BUTTON);
+        senkeysToElement(appiumDriver, ManageProjectPageUI.ADD_A_COMMENT_TEXTBOX,comment);
+        clickToElement(appiumDriver,ManageProjectPageUI.SEND_COMMENT_BUTTON);
+        hideKeyboard(appiumDriver);
+        testContext.scenarioContext.setContext(GlobalVariables.COMMENT, comment);
+    }
+
+    @When("I click edit comment")
+    public void iClickEditComment() {
+        testContext.scenarioContext.setContext(GlobalVariables.COMMENT, getTextAtribute(appiumDriver, ManageProjectPageUI.COMMENT_TEXT_FOLLOW_MORE_OPTIONS));
+        clickToElement(appiumDriver, ManageProjectPageUI.MORE_OPTION_COMMENT_BUTTON);
+        clickToElement(appiumDriver, ManageProjectPageUI.EDIT_COMMENT_BUTTON);
+    }
+
+    @And("I input edit comment with {string}")
+    public void iInputEditCommentWith(String comment) {
+        testContext.scenarioContext.setContext(GlobalVariables.COMMENT_EDIT, comment);
+        senkeysToElement(appiumDriver, ManageProjectPageUI.EDIT_COMMENT_TEXTBOX, comment);
+    }
+
+    @And("I click ok button")
+    public void iClickOkButton() {
+        clickToElement(appiumDriver, ManageProjectPageUI.OK_BUTTON_EDIT_COMMENT);
+        hideKeyboard(appiumDriver);
+    }
+
+    @And("I click cancel button")
+    public void iClickCancelButton() {
+        clickToElement(appiumDriver, ManageProjectPageUI.CANCEL_BUTTON_EDIT_COMMENT);
+        hideKeyboard(appiumDriver);
+    }
+
+    @Then("Verify comment unsuccessful")
+    public void verifyCommentUnsuccessful() {
+//        String comment = getTextAtribute(appiumDriver, ManageProjectPageUI.COMMENT_TEXT_FOLLOW_MORE_OPTIONS);
+        String comment = testContext.scenarioContext.getContext(GlobalVariables.COMMENT);
+        Assert.assertEquals(getTextAtribute(appiumDriver, ManageProjectPageUI.COMMENT_LABEL), comment);
+    }
+
+    @Then("Verify edit comment successful")
+    public void verifyEditCommentSuccessful() {
+        String comment = testContext.scenarioContext.getContext(GlobalVariables.COMMENT_EDIT);
+        Assert.assertEquals(getTextAtribute(appiumDriver, ManageProjectPageUI.COMMENT_LABEL), comment);
+    }
+
+    @When("I click delete comment")
+    public void iClickDeleteComment() {
+        testContext.scenarioContext.setContext(GlobalVariables.COMMENT, getTextAtribute(appiumDriver, ManageProjectPageUI.COMMENT_TEXT_FOLLOW_MORE_OPTIONS));
+        clickToElement(appiumDriver, ManageProjectPageUI.MORE_OPTION_COMMENT_BUTTON);
+        clickToElement(appiumDriver, ManageProjectPageUI.DELETE_COMMENT_BUTTON);
+    }
+
+    @And("I click no button")
+    public void iClickNoButton() {
+        clickToElement(appiumDriver, ManageProjectPageUI.CANCEL_BUTTON_EDIT_COMMENT);
+    }
+
+    @And("I click yes button")
+    public void iClickYesButton() {
+        clickToElement(appiumDriver, ManageProjectPageUI.OK_BUTTON_EDIT_COMMENT);
+    }
+
+    @Then("Verify delete comment unsuccessful")
+    public void verifyDeleteCommentUnsuccessful() {
+        String comment = testContext.scenarioContext.getContext(GlobalVariables.COMMENT);
+        Assert.assertEquals(getTextAtribute(appiumDriver, ManageProjectPageUI.COMMENT_LABEL), comment);
+    }
+
+    @Then("Verify delete comment successful")
+    public void verifyDeleteCommentSuccessful() {
+        String comment = testContext.scenarioContext.getContext(GlobalVariables.COMMENT);
+        Assert.assertFalse(getTextAtribute(appiumDriver, ManageProjectPageUI.COMMENT_LABEL).equals(comment));
+    }
+
+    @And("I click delete project")
+    public void iClickDeleteProject() {
+        manageProject.clickToMoreIconInToolBar();
+        manageProject.clickToDeleteButtonInMore();
     }
 }

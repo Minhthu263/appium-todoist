@@ -17,4 +17,24 @@ public class ManageProjectPageUI {
     public static final String PROJECT_NAME_BUTTON = "//android.widget.TextView[@text='%s']";
     public static final String MORE_ICON_IN_TOOLBAR = "//android.widget.ImageView[@content-desc='More options']";
     public static final String EDIT_PROJECT_BUTTON_IN_MORE = "//android.widget.TextView[@resource-id='com.todoist:id/title' and @text='Edit project']";
+    public static final String DELETE_PROJECT_BUTTON_IN_MORE = "//android.widget.TextView[@resource-id='com.todoist:id/title' and @text='Delete']";
+    public static final String ARCHIVED_TAB = "//android.widget.TextView[@text='ARCHIVED']";
+    public static final String UNARCHIVE_OPTION_BUTTON = "//android.widget.ScrollView//android.widget.TextView[@text='Unarchive']";
+    public static final String ACTIVE_TAB = "//android.widget.TextView[@text='ACTIVE']";
+    public static final String ACCEPT_UNARCHIVE_BUTTON = "//android.widget.ScrollView[@resource-id='com.todoist:id/buttonPanel']//android.widget.Button[@text='UNARCHIVE']";
+    public static final String BACK_ICON = "//android.view.View[@content-desc='Back']";
+    public static final String OPEN_MENU_PROJECT = "(//android.view.View[@content-desc='Open menu'])[1]";
+    public static final String GET_NAME_PROJECT = "(//android.view.View[@content-desc=\"Open menu\"])[1]/parent::android.view.View/preceding-sibling::android.widget.TextView";
+    public static final String COMMENT_OPTION_BUTTON = "//android.widget.ScrollView//android.widget.TextView[@text='Comments']";
+    public static final String ADD_A_COMMENT_BUTTON = "//android.widget.TextView[@text='Add a comment']";
+    public static final String ADD_A_COMMENT_TEXTBOX = "//android.widget.EditText[@resource-id='com.todoist:id/input']";
+    public static final String SEND_COMMENT_BUTTON ="//android.widget.ImageButton[@content-desc='Submit']";
+    public static final String COMMENT_LABEL = "(//android.widget.TextView[@resource-id='com.todoist:id/note_content'])[last()]";
+    public static final String MORE_OPTION_COMMENT_BUTTON = "(//android.widget.ImageView[@content-desc='More options'])[last()]";
+    public static final String COMMENT_TEXT_FOLLOW_MORE_OPTIONS = "(//android.widget.TextView[@resource-id='com.todoist:id/note_content'])[last()]";
+    public static final String EDIT_COMMENT_BUTTON = "//android.widget.TextView[@resource-id='android:id/title' and @text='Edit']";
+    public static final String DELETE_COMMENT_BUTTON = "//android.widget.TextView[@resource-id='android:id/title' and @text='Delete']";
+    public static final String EDIT_COMMENT_TEXTBOX = "//android.widget.EditText[@resource-id='android:id/message']";
+    public static final String OK_BUTTON_EDIT_COMMENT = "//android.widget.Button[@resource-id='android:id/button1']";
+    public static final String CANCEL_BUTTON_EDIT_COMMENT = "//android.widget.Button[@resource-id='android:id/button2']";
 }
