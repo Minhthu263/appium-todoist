@@ -25,7 +25,7 @@ public class ManageProjectPage extends BasePage {
     }
 
     public void verifyCreateProjectSuccessful(String projectName) {
-        Assert.assertEquals(getText(appiumDriver,ManageProjectPageUI.PROJECT_NAME_LABEL), projectName);
+        Assert.assertEquals(getText(appiumDriver, ManageProjectPageUI.PROJECT_NAME_LABEL), projectName);
     }
 
     public void clickToColorButton() {
@@ -53,7 +53,7 @@ public class ManageProjectPage extends BasePage {
     }
 
     public void clickToOption(String projectName) {
-        clickToElement(appiumDriver, ManageProjectPageUI.OPTION_BUTTON,projectName);
+        clickToElement(appiumDriver, ManageProjectPageUI.OPTION_BUTTON, projectName);
     }
 
     public void clickToArchiveOption() {
@@ -63,6 +63,7 @@ public class ManageProjectPage extends BasePage {
     public void clickToAcceptArchiveButton() {
         clickToElement(appiumDriver, ManageProjectPageUI.ACCEPT_ARCHIVE_BUTTON);
     }
+
     public void clickToCancelArchiveButton() {
         clickToElement(appiumDriver, ManageProjectPageUI.CANCEL_ARCHIVE_BUTTON);
     }
@@ -78,6 +79,7 @@ public class ManageProjectPage extends BasePage {
     public void clickToEditButtonInMore() {
         clickToElement(appiumDriver, ManageProjectPageUI.EDIT_PROJECT_BUTTON_IN_MORE);
     }
+
     public void clickToDeleteButtonInMore() {
         clickToElement(appiumDriver, ManageProjectPageUI.DELETE_PROJECT_BUTTON_IN_MORE);
     }
@@ -87,7 +89,7 @@ public class ManageProjectPage extends BasePage {
     }
 
     public void verifyProjectIsDisplay(String name) {
-        isDisplayed(appiumDriver,ManageProjectPageUI.PROJECT_NAME_BUTTON,name);
+        isDisplayed(appiumDriver, ManageProjectPageUI.PROJECT_NAME_BUTTON, name);
     }
 
     public void clickToUnarchiveOption() {

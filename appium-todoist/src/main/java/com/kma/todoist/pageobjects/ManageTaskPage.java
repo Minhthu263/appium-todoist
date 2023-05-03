@@ -12,7 +12,7 @@ public class ManageTaskPage extends BasePage {
     }
 
     public void inputToTaskNameTextbox(String taskName) {
-        tapThenSenkeysToElement(appiumDriver, ManageTaskUI.TASK_NAME_TEXTBOX,taskName);
+        tapThenSenkeysToElement(appiumDriver, ManageTaskUI.TASK_NAME_TEXTBOX, taskName);
     }
 
     public void inputToDescriptionTextbox(String description) {
@@ -41,6 +41,7 @@ public class ManageTaskPage extends BasePage {
 
     public void closeAddTask() {
 //        clickToElement(appiumDriver, ManageTaskUI.TODAY_LABEL);
-        tapToElementByPosition(appiumDriver, ManageTaskUI.TODAY_LABEL);
+//        tapToElementByPosition(appiumDriver, ManageTaskUI.TODAY_LABEL);
+        tapToPosition(appiumDriver);
     }
 }

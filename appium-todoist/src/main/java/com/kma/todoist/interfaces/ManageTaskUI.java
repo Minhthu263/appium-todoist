@@ -1,6 +1,6 @@
 package com.kma.todoist.interfaces;
 
-public class ManageTaskUI{
+public class ManageTaskUI {
     public static final String ADD_TASK_ICON = "//android.widget.ImageButton[@content-desc='Quick add']";
     public static final String TASK_NAME_TEXTBOX = "//android.widget.EditText[@resource-id='android:id/message']";
     public static final String DESCRIPTION_TEXTBOX = "//android.widget.EditText[@resource-id='com.todoist:id/description']";
@@ -17,4 +17,10 @@ public class ManageTaskUI{
     public static final String DESCRIPTION_LABEL = "//android.widget.TextView[@resource-id='com.todoist:id/text' and @text='%s']/following-sibling::android.widget.TextView[@resource-id='com.todoist:id/description']";
     public static final String LABEL_LABEL = "//android.widget.TextView[@resource-id='com.todoist:id/text' and @text='%s']/following-sibling::android.widget.RelativeLayout/android.widget.TextView[@resource-id='com.todoist:id/labels']";
     public static final String PROJECT_LABEL = "//android.widget.TextView[@resource-id='com.todoist:id/text' and @text='%s']/following-sibling::android.widget.RelativeLayout/android.widget.TextView[@resource-id='com.todoist:id/breadcrumb']";
+    public static final String TASK_NAME_BUTTON = "//android.widget.TextView[@resource-id='com.todoist:id/text' and @text='%s']";
+    public static final String TASK_NAME_LABEL_IN_DETAIL_TASK = "//android.widget.EditText[@resource-id='com.todoist:id/item_content']";
+    public static final String PRIORITY_LABEL_IN_DETAIL_TASK = "//android.view.ViewGroup[@resource-id='com.todoist:id/item_attribute_priority']//android.widget.TextView";
+    public static final String LABEL_LABEL_IN_DETAIL_TASK = "//android.view.ViewGroup[@resource-id='com.todoist:id/item_attribute_labels']//android.widget.TextView";
+    public static final String PROJECT_NAME_LABEL_IN_DETAIL_TASK = "//android.widget.TextView[@resource-id='com.todoist:id/item_parent']";
+    public static final String DESCRIPTION_LABEL_IN_DETAIL_TASK = "//android.widget.EditText[@resource-id='com.todoist:id/item_description']";
 }

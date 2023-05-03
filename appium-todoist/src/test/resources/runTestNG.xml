@@ -1,9 +1,9 @@
 <?xml version = "1.0"encoding = "UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name = "Suite1">
-    <test name = "Test Demo">
+<suite name="Suite1">
+    <test name="Test Demo">
         <classes>
-            <class name = "com.kma.todoist.cucumber.DebugRunner"/>
+            <class name="com.kma.todoist.cucumber.DebugRunner"/>
         </classes>
     </test>
 </suite>

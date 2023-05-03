@@ -47,7 +47,7 @@ public class LoginStepdefs extends BaseSteps {
     @Then("Verify login successful")
     public void verifyLoginSuccessful() {
         log.info("Login - STEP - Verify login successful");
-        Assert.assertTrue(isDisplayed(appiumDriver,LoginPageUI.TODAY_LABEL));
+        Assert.assertTrue(isDisplayed(appiumDriver, LoginPageUI.TODAY_LABEL));
 //        appiumDriver.closeApp();
         Hooks.close();
     }
@@ -55,7 +55,7 @@ public class LoginStepdefs extends BaseSteps {
     @And("I click Login with Email")
     public void iClickLoginWithEmail() {
         log.info("Login - STEP - Click Login with Email");
-        clickToElement(appiumDriver,LoginPageUI.LOGIN_WITH_EMAIL_BUTTON);
+        clickToElement(appiumDriver, LoginPageUI.LOGIN_WITH_EMAIL_BUTTON);
     }
 
     @Given("I click Continue with more options")
@@ -74,13 +74,13 @@ public class LoginStepdefs extends BaseSteps {
     @When("I input username with {string}")
     public void iInputUsernameWith(String username) {
         log.info("Login - STEP - Input username");
-        senkeysToElement(appiumDriver,LoginPageUI.EMAIL_TEXTBOX,username);
+        senkeysToElement(appiumDriver, LoginPageUI.EMAIL_TEXTBOX, username);
     }
 
     @And("I input password with {string}")
     public void iInputPasswordWith(String password) {
         log.info("Login - STEP - Input password");
-        senkeysToElement(appiumDriver,LoginPageUI.PASSWORD_TEXTBOX,password);
+        senkeysToElement(appiumDriver, LoginPageUI.PASSWORD_TEXTBOX, password);
     }
 
     @And("I click to Login")

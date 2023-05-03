@@ -50,17 +50,17 @@ public class ManageTaskStepdef extends BaseSteps {
 //        manageTask.inputToTaskNameTextbox(taskName);
 
         String value = taskName;
-        if(priority != null){
+        if (priority != null) {
             value += " !!" + priority;
         }
-        if(label != null){
+        if (label != null) {
             value += " @" + label;
         }
-        if(projectName != null){
+        if (projectName != null) {
             value += " #" + projectName;
         }
         manageTask.inputToTaskNameTextbox(value);
-        if(description != null){
+        if (description != null) {
             manageTask.inputToDescriptionTextbox(description);
         }
 
@@ -95,6 +95,41 @@ public class ManageTaskStepdef extends BaseSteps {
         if (task.getDescription() != null) {
             checkEqualsSoft(softAssert, getTextAtribute(appiumDriver, ManageTaskUI.DESCRIPTION_LABEL, taskName), task.getDescription());
         }
+        softAssert.assertAll();
+    }
+
+    @When("I view task {string}")
+    public void iViewTask(String taskName) {
+        isDisplayed(appiumDriver, ManageTaskUI.TODAY_LABEL);
+        scrollMobileUpToElement(appiumDriver, ManageTaskUI.TASK_NAME_BUTTON, taskName);
+        clickToElement(appiumDriver, ManageTaskUI.TASK_NAME_BUTTON, taskName);
+    }
+
+    @Then("Verify add task detail")
+    public void verifyAddTaskDetail(Map<String, String> data) {
+        String taskName = data.get("taskName");
+        String description = data.get("description");
+        String priority = data.get("priority");
+        String label = data.get("label");
+        String projectName = data.get("projectName");
+
+        SoftAssert softAssert = new SoftAssert();
+        if(taskName != null){
+            softAssert.assertTrue(getTextAtribute(appiumDriver, ManageTaskUI.TASK_NAME_LABEL_IN_DETAIL_TASK).contains(taskName));
+        }
+        if (priority != null && priority != "4") {
+            softAssert.assertEquals(getTextAtribute(appiumDriver, ManageTaskUI.PRIORITY_LABEL_IN_DETAIL_TASK), "Priority " + priority);
+        }
+        if (label != null) {
+            softAssert.assertEquals(getTextAtribute(appiumDriver, ManageTaskUI.LABEL_LABEL_IN_DETAIL_TASK), label);
+        }
+        if (projectName != null) {
+            softAssert.assertTrue(getTextAtribute(appiumDriver, ManageTaskUI.PROJECT_NAME_LABEL_IN_DETAIL_TASK).contains(projectName));
+        }
+        if (description != null) {
+            softAssert.assertEquals(getTextAtribute(appiumDriver, ManageTaskUI.DESCRIPTION_LABEL_IN_DETAIL_TASK), description);
+        }
+        manageTask.closeAddTask();
         softAssert.assertAll();
     }
 }

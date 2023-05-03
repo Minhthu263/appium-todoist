@@ -28,7 +28,7 @@ public class ManageProjectPageUI {
     public static final String COMMENT_OPTION_BUTTON = "//android.widget.ScrollView//android.widget.TextView[@text='Comments']";
     public static final String ADD_A_COMMENT_BUTTON = "//android.widget.TextView[@text='Add a comment']";
     public static final String ADD_A_COMMENT_TEXTBOX = "//android.widget.EditText[@resource-id='com.todoist:id/input']";
-    public static final String SEND_COMMENT_BUTTON ="//android.widget.ImageButton[@content-desc='Submit']";
+    public static final String SEND_COMMENT_BUTTON = "//android.widget.ImageButton[@content-desc='Submit']";
     public static final String COMMENT_LABEL = "(//android.widget.TextView[@resource-id='com.todoist:id/note_content'])[last()]";
     public static final String MORE_OPTION_COMMENT_BUTTON = "(//android.widget.ImageView[@content-desc='More options'])[last()]";
     public static final String COMMENT_TEXT_FOLLOW_MORE_OPTIONS = "(//android.widget.TextView[@resource-id='com.todoist:id/note_content'])[last()]";

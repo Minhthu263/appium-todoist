@@ -29,6 +29,22 @@ public class BasePage {
         appiumDriver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
     }
 
+    protected static void sleepInSecond(long timeout) {
+        try {
+            Thread.sleep(timeout * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected static String getDay(int count) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy");
+        Calendar c = Calendar.getInstance();
+        c.setTime(c.getTime());
+        c.add(Calendar.DATE, count);  // number of days to add
+        return sdf.format(c.getTime());
+    }
+
     protected boolean isElementExist(AppiumDriver<MobileElement> appiumDriver, String locator) {
         setImplicitlyWait(appiumDriver, GlobalVariables.SHORT_TIME_OUT);
         boolean check = findElementsByXpath(appiumDriver, locator).isEmpty();
@@ -369,7 +385,7 @@ public class BasePage {
                 e.printStackTrace();
             }
             if (element == null) {
-                swipeMobileDown(appiumDriver);
+                swipeMobileUp(appiumDriver);
             } else {
                 check = true;
             }
@@ -377,16 +393,21 @@ public class BasePage {
         setImplicitlyWait(appiumDriver, GlobalVariables.TIME_OUT);
     }
 
-    protected void tapToElementByPosition(AppiumDriver appiumDriver, String location) {
-        MobileElement element = findElementByXpath(appiumDriver, location);
-        int startX = element.getLocation().getX();
-        int startY = element.getLocation().getY();
-        int x = startX + (element.getSize().getWidth() / 2);
-        int y = startY + (element.getSize().getHeight() / 2);
-        new TouchAction(appiumDriver)
-                .press(PointOption.point(x, y))
-                .waitAction(WaitOptions.waitOptions(ofMillis(100)))
-                .release().perform();
+    protected void scrollMobileUpToElement(AppiumDriver<MobileElement> appiumDriver, String locator) {
+        WebElement element = null;
+        boolean check = false;
+        do {
+            try {
+                element = appiumDriver.findElement(By.xpath(locator));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (element == null) {
+                swipeMobileUp(appiumDriver);
+            } else {
+                check = true;
+            }
+        } while (!check);
     }
 
     protected void scrollUpToElement(AppiumDriver<MobileElement> appiumDriver, String locatorItem, String locator) {
@@ -403,25 +424,28 @@ public class BasePage {
             } else {
                 check = true;
             }
-
         } while (!check);
-
     }
 
-    protected static void sleepInSecond(long timeout) {
-        try {
-            Thread.sleep(timeout * 1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    protected void tapToElementByPosition(AppiumDriver appiumDriver, String location) {
+        MobileElement element = findElementByXpath(appiumDriver, location);
+        int startX = element.getLocation().getX();
+        int startY = element.getLocation().getY();
+        int x = startX + (element.getSize().getWidth() / 2);
+        int y = startY + (element.getSize().getHeight() / 2);
+        new TouchAction(appiumDriver)
+                .press(PointOption.point(x, y))
+                .waitAction(WaitOptions.waitOptions(ofMillis(100)))
+                .release().perform();
     }
-
-    protected static String getDay(int count) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy");
-        Calendar c = Calendar.getInstance();
-        c.setTime(c.getTime());
-        c.add(Calendar.DATE, count);  // number of days to add
-        return sdf.format(c.getTime());
+    protected void tapToPosition(AppiumDriver appiumDriver) {
+        Dimension size = appiumDriver.manage().window().getSize();
+        int x = (int) (size.height * 0.1);
+        int y = size.width / 2;
+        new TouchAction(appiumDriver)
+                .press(PointOption.point(x, y))
+                .waitAction(WaitOptions.waitOptions(ofMillis(100)))
+                .release().perform();
     }
 
     protected String generateNameCustomer() {

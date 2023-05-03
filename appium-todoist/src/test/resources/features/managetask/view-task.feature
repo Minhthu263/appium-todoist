@@ -1,16 +1,14 @@
+@check
+Feature: Xem chi tiết task
 
-Feature: Thêm mới task ngày hôm nay
-
-  Scenario Outline: Tạo task
-    Given I click icon Add Task
-    When I input information
+  Scenario Outline: Xem cho tiết task
+    When I view task "<taskName>"
+    Then Verify add task detail
       | taskName    | <taskName>    |
       | description | <description> |
       | priority    | <priority>    |
       | label       | <label>       |
       | projectName | <projectName> |
-    And I click Send button
-    Then Verify add task
 
     Examples:
       | taskName | description | priority | label | projectName   |

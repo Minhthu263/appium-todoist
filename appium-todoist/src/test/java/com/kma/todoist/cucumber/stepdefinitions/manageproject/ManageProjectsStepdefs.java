@@ -6,6 +6,7 @@ import com.kma.todoist.cucumber.Hooks;
 import com.kma.todoist.helper.TestContext;
 import com.kma.todoist.helper.object.Project;
 import com.kma.todoist.interfaces.ManageProjectPageUI;
+import com.kma.todoist.interfaces.ManageTaskUI;
 import com.kma.todoist.pageobjects.ManageProjectPage;
 import com.kma.todoist.pageobjects.PageGeneratorManager;
 import io.appium.java_client.AppiumDriver;
@@ -22,17 +23,20 @@ public class ManageProjectsStepdefs extends BaseSteps {
     AppiumDriver<MobileElement> appiumDriver;
     TestContext testContext;
     ManageProjectPage manageProject;
+
     public ManageProjectsStepdefs(TestContext context) {
         super(context);
         this.appiumDriver = Hooks.openAndQuitApp();
         manageProject = PageGeneratorManager.getManageProjectPage(appiumDriver);
         testContext = context;
     }
+
     @When("I click + Add project")
     public void i_click_add_project() {
         log.info("STEP-I click + Add project");
         manageProject.clickToIconAddProject();
     }
+
     @When("I input Project Name with {string}")
     public void i_input_project_name_with(String projectName) {
         log.info("STEP-input Project Name");
@@ -40,6 +44,7 @@ public class ManageProjectsStepdefs extends BaseSteps {
         Project project = new Project(projectName, null);
         testContext.scenarioContext.setContext(GlobalVariables.CREATE_PROJECT, project);
     }
+
     @When("I click to V icon")
     public void i_click_to_v_icon() {
         manageProject.clickToIconCompleteProject();
@@ -100,6 +105,7 @@ public class ManageProjectsStepdefs extends BaseSteps {
 
     @When("I click project name with {string}")
     public void iClickProjectNameWith(String projectName) {
+        testContext.scenarioContext.setContext(GlobalVariables.PROJECT_NAME, projectName);
         manageProject.clickToProjectName(projectName);
     }
 
@@ -119,27 +125,26 @@ public class ManageProjectsStepdefs extends BaseSteps {
         String favorite = data.get(0).get("favorite");
         String view = data.get(0).get("view");
 
-        if (projectName!=null){
+        if (projectName != null) {
             manageProject.inputToProjectNameTextbox(projectName);
             Project project = new Project(projectName, color);
             testContext.scenarioContext.setContext(GlobalVariables.CREATE_PROJECT, project);
-        }
-        else {
+        } else {
             Project project = new Project(projectNameOld, color);
             testContext.scenarioContext.setContext(GlobalVariables.CREATE_PROJECT, project);
         }
-        if (color!=null){
+        if (color != null) {
             manageProject.clickToColorButton();
             manageProject.clickChooseColor(color);
         }
-        if (parent!=null){
+        if (parent != null) {
             manageProject.clickToParentButton();
             manageProject.clickChooseParent(parent);
         }
-        if (favorite!=null){
+        if (favorite != null) {
             manageProject.clickChooseFavorite();
         }
-        if (view!=null){
+        if (view != null) {
             manageProject.clickChooseViewBoard();
         }
 
@@ -233,8 +238,8 @@ public class ManageProjectsStepdefs extends BaseSteps {
     public void iInputCommentWith(String comment) {
 //        tapThenSenkeysToElement(appiumDriver, ManageProjectPageUI.ADD_A_COMMENT,comment);
         clickToElement(appiumDriver, ManageProjectPageUI.ADD_A_COMMENT_BUTTON);
-        senkeysToElement(appiumDriver, ManageProjectPageUI.ADD_A_COMMENT_TEXTBOX,comment);
-        clickToElement(appiumDriver,ManageProjectPageUI.SEND_COMMENT_BUTTON);
+        senkeysToElement(appiumDriver, ManageProjectPageUI.ADD_A_COMMENT_TEXTBOX, comment);
+        clickToElement(appiumDriver, ManageProjectPageUI.SEND_COMMENT_BUTTON);
         hideKeyboard(appiumDriver);
         testContext.scenarioContext.setContext(GlobalVariables.COMMENT, comment);
     }
@@ -310,5 +315,21 @@ public class ManageProjectsStepdefs extends BaseSteps {
     public void iClickDeleteProject() {
         manageProject.clickToMoreIconInToolBar();
         manageProject.clickToDeleteButtonInMore();
+    }
+
+    @Then("I check delete project unsuccessful")
+    public void iCheckDeleteProjectUnsuccessful() {
+//        String projectName = testContext.scenarioContext.getContext(GlobalVariables.PROJECT_NAME);
+        manageProject.verifyCreateProjectSuccessful(testContext.scenarioContext.getContext(GlobalVariables.PROJECT_NAME));
+    }
+
+    @And("I click delete button")
+    public void iClickDeleteButton() {
+        clickToElement(appiumDriver, ManageProjectPageUI.OK_BUTTON_EDIT_COMMENT);
+    }
+
+    @Then("I check delete project successful")
+    public void iCheckDeleteProjectSuccessful() {
+        manageProject.verifyCreateProjectSuccessful("Today");
     }
 }

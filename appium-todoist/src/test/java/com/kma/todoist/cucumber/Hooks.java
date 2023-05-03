@@ -31,10 +31,6 @@ public class Hooks extends BaseSteps {
 //        testContext = context;
     }
 
-    public AppiumDriver<MobileElement> getDriver() {
-        return driver;
-    }
-
     @Before
     public synchronized static AppiumDriver<MobileElement> openAndQuitApp(Scenario scenario) {
         if (driver == null) {
@@ -98,6 +94,36 @@ public class Hooks extends BaseSteps {
         return driver;
     }
 
+    public static void close() {
+        try {
+            if (driver != null) {
+                openAndQuitApp().quit();
+                driver = null;
+                log.info("------------- Closed the browser -------------");
+            }
+        } catch (UnreachableBrowserException e) {
+            System.out.println("Can not close the browser");
+        }
+    }
+
+    public static void tearDownApp(Scenario scenario) throws IOException {
+        if (scenario.isFailed()) {
+            log.info("------------- " + scenario.getName() + " -------------" + scenario.getStatus());
+            log.info("------------- DRIVER DOWN -------------");
+//            driver.closeApp();
+            driver = null;
+        } else {
+            log.info("------------- " + scenario.getName() + " -------------" + scenario.getStatus());
+        }
+    }
+
+    private static String nameImage() {
+        return UUID.randomUUID().toString();
+    }
+
+    public AppiumDriver<MobileElement> getDriver() {
+        return driver;
+    }
 
     @After
     public void tearDown(Scenario scenario) throws IOException {
@@ -110,42 +136,6 @@ public class Hooks extends BaseSteps {
 //            driver = null;
         } else {
 //            addScreenshot();
-            log.info("------------- " + scenario.getName() + " -------------" + scenario.getStatus());
-        }
-    }
-
-
-    public static void close() {
-        try {
-            if (driver != null) {
-                openAndQuitApp().quit();
-                driver=null;
-                log.info("------------- Closed the browser -------------");
-            }
-        } catch (UnreachableBrowserException e) {
-            System.out.println("Can not close the browser");
-        }
-    }
-
-    private Path lastestImage() {
-        File root = new File(String.join(File.separator, System.getProperty("user.dir"), "screenshot"));
-        File[] images = root.listFiles(file -> file.isFile() && file.getName().toLowerCase().endsWith(".png"));
-        File lastestImg = images[0];
-        for (File image : images) {
-            if (image.lastModified() > lastestImg.lastModified()) {
-                lastestImg = image;
-            }
-        }
-        return lastestImg.toPath();
-    }
-
-    public static void tearDownApp(Scenario scenario) throws IOException {
-        if (scenario.isFailed()) {
-            log.info("------------- " + scenario.getName() + " -------------" + scenario.getStatus());
-            log.info("------------- DRIVER DOWN -------------");
-//            driver.closeApp();
-            driver = null;
-        } else {
             log.info("------------- " + scenario.getName() + " -------------" + scenario.getStatus());
         }
     }
@@ -181,8 +171,16 @@ public class Hooks extends BaseSteps {
 //        }
 //    }
 
-    private static String nameImage() {
-        return UUID.randomUUID().toString();
+    private Path lastestImage() {
+        File root = new File(String.join(File.separator, System.getProperty("user.dir"), "screenshot"));
+        File[] images = root.listFiles(file -> file.isFile() && file.getName().toLowerCase().endsWith(".png"));
+        File lastestImg = images[0];
+        for (File image : images) {
+            if (image.lastModified() > lastestImg.lastModified()) {
+                lastestImg = image;
+            }
+        }
+        return lastestImg.toPath();
     }
 
     private static class BrowserCleanup implements Runnable {
