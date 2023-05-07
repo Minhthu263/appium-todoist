@@ -14,10 +14,10 @@ Feature: Chỉnh sửa project
 
     Examples:
       | projectNameOld | projectName | color | parent        | favorite | view  |
-      | Test           | edit1       |       |               |          |       |
-      | edit1          |             | Green |               |          |       |
-      | edit1          |             |       | Salon Booking |          |       |
-      | edit1          |             |       |               | true     |       |
-      | edit1          |             |       |               |          | Board |
+      | Connect        | FNB         |       |               |          |       |
+      | FNB            |             | Green |               |          |       |
+      | FNB            |             |       | Salon Booking |          |       |
+      | FNB            |             |       |               | true     |       |
+      | FNB            |             |       |               |          | Board |
 
 

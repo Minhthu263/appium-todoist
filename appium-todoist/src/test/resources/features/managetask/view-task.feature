@@ -1,7 +1,7 @@
-@check
-Feature: Xem chi tiết task
 
-  Scenario Outline: Xem cho tiết task
+Feature: View task detail
+
+  Scenario Outline: View task detail
     When I view task "<taskName>"
     Then Verify add task detail
       | taskName    | <taskName>    |

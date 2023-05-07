@@ -51,6 +51,12 @@ public class BasePage {
         setImplicitlyWait(appiumDriver, GlobalVariables.TIME_OUT);
         return !check;
     }
+    protected boolean isElementExist(AppiumDriver<MobileElement> appiumDriver, String locator,String... value) {
+        setImplicitlyWait(appiumDriver, GlobalVariables.SHORT_TIME_OUT);
+        boolean check = findElementsByXpath(appiumDriver, getLocatorDynamic(locator, value)).isEmpty();
+        setImplicitlyWait(appiumDriver, GlobalVariables.TIME_OUT);
+        return !check;
+    }
 
     protected MobileElement findElementByXpath(AppiumDriver<MobileElement> appiumDriver, String locator) {
         return appiumDriver.findElement(By.xpath(locator));
@@ -76,7 +82,6 @@ public class BasePage {
     }
 
     protected void waitForVisible(AppiumDriver<MobileElement> appiumDriver, String locator) {
-
         WebDriverWait wait = new WebDriverWait(appiumDriver, GlobalVariables.TIME_OUT);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
     }
@@ -97,7 +102,6 @@ public class BasePage {
     }
 
     protected void waitForClickable(AppiumDriver<MobileElement> appiumDriver, String locator, String... values) {
-
         WebDriverWait wait = new WebDriverWait(appiumDriver, GlobalVariables.TIME_OUT);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(getLocatorDynamic(locator, values))));
     }
@@ -438,6 +442,7 @@ public class BasePage {
                 .waitAction(WaitOptions.waitOptions(ofMillis(100)))
                 .release().perform();
     }
+
     protected void tapToPosition(AppiumDriver appiumDriver) {
         Dimension size = appiumDriver.manage().window().getSize();
         int x = (int) (size.height * 0.1);
@@ -448,8 +453,14 @@ public class BasePage {
                 .release().perform();
     }
 
+    protected int generateNumber() {
+        Faker faker = new Faker();
+        return (faker.random().nextInt(100));
+    }
+
     protected String generateNameCustomer() {
         Faker faker = new Faker();
+        faker.random().toString();
         return (faker.name().fullName() + faker.name().firstName()).replace("'", "");
     }
 

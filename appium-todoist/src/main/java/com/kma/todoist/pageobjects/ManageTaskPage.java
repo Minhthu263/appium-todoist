@@ -44,4 +44,23 @@ public class ManageTaskPage extends BasePage {
 //        tapToElementByPosition(appiumDriver, ManageTaskUI.TODAY_LABEL);
         tapToPosition(appiumDriver);
     }
+
+    public void clickToDueDateButton() {
+        clickToElement(appiumDriver, ManageTaskUI.SCHEDULE_BUTTON_IN_CREATE_TASK);
+    }
+
+    public void clickToTomorrowButton() {
+        clickToElement(appiumDriver, ManageTaskUI.TOMORROW_BUTTON);
+    }
+
+    public void clickToThisWeekendButton() {
+        clickToElement(appiumDriver, ManageTaskUI.THIS_WEEKEND_BUTTON);
+    }
+    public void clickToNextWeekendButton() {
+        clickToElement(appiumDriver, ManageTaskUI.NEXT_WEEKEND_BUTTON);
+    }
+
+    public void clickToScheduleButton() {
+        clickToElement(appiumDriver, ManageTaskUI.SCHEDULE_BUTTON_IN_DUEDATE);
+    }
 }

@@ -1,6 +1,7 @@
 package com.kma.todoist.cucumber.stepdefinitions.managetask;
 
 import com.kma.todoist.common.BaseSteps;
+import com.kma.todoist.common.GlobalVariables;
 import com.kma.todoist.cucumber.Hooks;
 import com.kma.todoist.helper.TestContext;
 import com.kma.todoist.helper.object.Task;
@@ -13,6 +14,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
 import java.util.Map;
@@ -21,7 +23,6 @@ public class ManageTaskStepdef extends BaseSteps {
     AppiumDriver<MobileElement> appiumDriver;
     TestContext testContext;
     ManageTaskPage manageTask;
-
     SoftAssert softAssert = new SoftAssert();
 
     public ManageTaskStepdef(TestContext context) {
@@ -34,7 +35,11 @@ public class ManageTaskStepdef extends BaseSteps {
     @Given("I click icon Add Task")
     public void i_click_icon_add_task() {
         log.info("ManageTask - STEP - Click icon Add task");
-        isDisplayed(appiumDriver, ManageTaskUI.TODAY_LABEL);
+//        isDisplayed(appiumDriver, ManageTaskUI.TODAY_LABEL);
+        isDisplayed(appiumDriver, ManageTaskUI.MORE_ICON_IN_HOME);
+        if (!isElementExist(appiumDriver, ManageTaskUI.ADD_TASK_ICON)){
+            manageTask.closeAddTask();
+        }
         clickToElement(appiumDriver, ManageTaskUI.ADD_TASK_ICON);
     }
 
@@ -63,7 +68,6 @@ public class ManageTaskStepdef extends BaseSteps {
         if (description != null) {
             manageTask.inputToDescriptionTextbox(description);
         }
-
         Task task = new Task(taskName, description, priority, label, projectName);
         testContext.scenarioContext.setContext("task", task);
     }
@@ -131,5 +135,119 @@ public class ManageTaskStepdef extends BaseSteps {
         }
         manageTask.closeAddTask();
         softAssert.assertAll();
+    }
+
+    @And("I click to Inbox")
+    public void iClickToInbox() {
+        clickToElement(appiumDriver, ManageTaskUI.INBOX_MENU_BAR);
+    }
+
+    @When("I choose Tomorrow")
+    public void iChooseTomorrow() {
+        manageTask.clickToDueDateButton();
+        manageTask.clickToTomorrowButton();
+        testContext.scenarioContext.setContext(GlobalVariables.TASK_DUE_DATE, "Tomorrow");
+    }
+
+    @When("I input to Task name")
+    public void iInputToTaskName() {
+        String taskName = "Task " + generateNumber();
+        tapThenSenkeysToElement(appiumDriver, ManageTaskUI.TASK_NAME_TEXTBOX, taskName);
+        testContext.scenarioContext.setContext(GlobalVariables.TASK_NAME, taskName);
+    }
+
+    @Then("Verify add task tomorrow")
+    public void verifyAddTaskTomorrow() {
+        String taskName = testContext.scenarioContext.getContext(GlobalVariables.TASK_NAME);
+        checkEqualsSoft(softAssert, getTextAtribute(appiumDriver, ManageTaskUI.TASK_NAME_LABEL, taskName), taskName);
+        checkEqualsSoft(softAssert, getTextAtribute(appiumDriver, ManageTaskUI.DUE_DATE_LABEL, taskName), "Tomorrow");
+    }
+
+    @And("I choose This weekend")
+    public void iChooseThisWeekend() {
+        manageTask.clickToDueDateButton();
+
+        if(isElementExist(appiumDriver, ManageTaskUI.THIS_WEEKEND_BUTTON)) {
+            manageTask.clickToThisWeekendButton();
+        }
+        else{
+            manageTask.clickToNextWeekendButton();
+        }
+        testContext.scenarioContext.setContext(GlobalVariables.TASK_DUE_DATE, "Saturday");
+
+    }
+
+    @Then("Verify add task this weekend")
+    public void verifyAddTaskThisWeekend() {
+        String taskName = testContext.scenarioContext.getContext(GlobalVariables.TASK_NAME);
+        checkEqualsSoft(softAssert, getTextAtribute(appiumDriver, ManageTaskUI.TASK_NAME_LABEL, taskName), taskName);
+        checkEqualsSoft(softAssert, getTextAtribute(appiumDriver, ManageTaskUI.DUE_DATE_LABEL, taskName), "Saturday");
+    }
+
+    @And("I choose any day")
+    public void iChooseAnyDay() {
+        manageTask.clickToDueDateButton();
+//        manageTask.clickToAnyDayButton();
+        clickToElement(appiumDriver, ManageTaskUI.ANY_DAY_BUTTON);
+        String[] date = getContentdescAtribute(appiumDriver, ManageTaskUI.ANY_DAY_BUTTON).split(" ");
+        int i = Integer.parseInt(date[0]);
+        String day = Integer.toString(i);
+        testContext.scenarioContext.setContext(GlobalVariables.TASK_DUE_DATE, date[1] + " " + day);
+        manageTask.clickToScheduleButton();
+    }
+
+    @Then("Verify add task different today")
+    public void verifyAddTaskDifferentToday() {
+        String taskName = testContext.scenarioContext.getContext(GlobalVariables.TASK_NAME);
+        String taskDueDate = testContext.scenarioContext.getContext(GlobalVariables.TASK_NAME);
+        checkEqualsSoft(softAssert, getTextAtribute(appiumDriver, ManageTaskUI.TASK_NAME_LABEL, taskName), taskName);
+        checkEqualsSoft(softAssert, getTextAtribute(appiumDriver, ManageTaskUI.DUE_DATE_LABEL, taskName), taskDueDate);
+    }
+
+    @And("I choose schedule")
+    public void iChooseSchedule() {
+        manageTask.clickToDueDateButton();
+        manageTask.clickToScheduleButton();
+        testContext.scenarioContext.setContext(GlobalVariables.TASK_DUE_DATE, "Today");
+    }
+
+    @Then("Verify add task no due date")
+    public void verifyAddTaskNoDueDate() {
+        String taskName = testContext.scenarioContext.getContext(GlobalVariables.TASK_NAME);
+        checkEqualsSoft(softAssert, getTextAtribute(appiumDriver, ManageTaskUI.TASK_NAME_LABEL, taskName), taskName);
+    }
+
+    @When("I click complete task {string}")
+    public void iClickCompleteTask(String taskName) {
+        clickToElement(appiumDriver, ManageTaskUI.COMPLETE_TASK_CHECKBOX,taskName);
+    }
+
+    @Then("Verify complete")
+    public void verifyComplete() {
+        Assert.assertTrue(isDisplayed(appiumDriver, ManageTaskUI.COMPLETE_MSG));
+    }
+
+    @And("I click Discard task")
+    public void iClickDiscardTask() {
+        manageTask.closeAddTask();
+        clickToElement(appiumDriver, ManageTaskUI.DISCARD_TASK_BUTTON);
+    }
+
+    @Then("Verify create task unsuccessful")
+    public void verifyCreateTaskUnsuccessful() {
+        String taskName = testContext.scenarioContext.getContext(GlobalVariables.TASK_NAME);
+//        Assert.assertTrue(isNotDisplayed(appiumDriver, ManageTaskUI.TASK_NAME_LABEL, taskName));
+        Assert.assertFalse(isElementExist(appiumDriver, ManageTaskUI.TASK_NAME_LABEL, taskName));
+    }
+
+    @When("I input to Task name in the past")
+    public void iInputToTaskNameInThePast() {
+        String taskName = "Task " + generateNumber();
+        tapThenSenkeysToElement(appiumDriver, ManageTaskUI.TASK_NAME_TEXTBOX, "1 May 2020 " + taskName);
+        testContext.scenarioContext.setContext(GlobalVariables.TASK_NAME, taskName);
+    }
+
+    @Then("Verify add task unccessful")
+    public void verifyAddTaskUnccessful() {
     }
 }

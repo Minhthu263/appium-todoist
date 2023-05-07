@@ -4,7 +4,7 @@ Feature: Thêm mới project
     Given I click menu bar
     And I click Manage project
     When I click + Add project
-    And I input Project Name with "số 1"
+    And I input Project Name with "Connect"
     And I click to V icon
     Then I check create project successful
 
@@ -12,7 +12,7 @@ Feature: Thêm mới project
     Given I click menu bar
     And I click Manage project
     When I click + Add project
-    And I input Project Name with "số 2"
+    And I input Project Name with "Retail"
     And I choose Color with "Red"
     And I choose Parent with "Salon Booking"
     And I choose Favorite
