@@ -37,4 +37,5 @@ public class ManageProjectPageUI {
     public static final String EDIT_COMMENT_TEXTBOX = "//android.widget.EditText[@resource-id='android:id/message']";
     public static final String OK_BUTTON_EDIT_COMMENT = "//android.widget.Button[@resource-id='android:id/button1']";
     public static final String CANCEL_BUTTON_EDIT_COMMENT = "//android.widget.Button[@resource-id='android:id/button2']";
+    public static final String COMMENT_TEXT_LABEL = "//android.widget.TextView[@resource-id='com.todoist:id/note_content' and @text='%s']";
 }

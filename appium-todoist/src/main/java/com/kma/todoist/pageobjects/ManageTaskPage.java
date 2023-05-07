@@ -19,21 +19,21 @@ public class ManageTaskPage extends BasePage {
         senkeysToElement(appiumDriver, ManageTaskUI.DESCRIPTION_TEXTBOX, description);
     }
 
-    public void choosePrority(String priority) {
-        clickToElement(appiumDriver, ManageTaskUI.PRIORITY_BUTTON);
-        clickToElement(appiumDriver, ManageTaskUI.PRIORITY_OPTIONS, priority);
-    }
-
-    public void chooseLabel(String label) {
-        clickToElement(appiumDriver, ManageTaskUI.MORE_ICON);
-        clickToElement(appiumDriver, ManageTaskUI.LABEL_BUTTON);
-        clickToElement(appiumDriver, ManageTaskUI.LABEL_OPTIONS, label);
-    }
-
-    public void chooseProjectForTask(String projectName) {
-        clickToElement(appiumDriver, ManageTaskUI.PROJECT_DROPDOWN);
-        clickToElement(appiumDriver, ManageTaskUI.PROJECT_OPTIONS, projectName);
-    }
+//    public void choosePrority(String priority) {
+//        clickToElement(appiumDriver, ManageTaskUI.PRIORITY_BUTTON);
+//        clickToElement(appiumDriver, ManageTaskUI.PRIORITY_OPTIONS, priority);
+//    }
+//
+//    public void chooseLabel(String label) {
+//        clickToElement(appiumDriver, ManageTaskUI.MORE_ICON);
+//        clickToElement(appiumDriver, ManageTaskUI.LABEL_BUTTON);
+//        clickToElement(appiumDriver, ManageTaskUI.LABEL_OPTIONS, label);
+//    }
+//
+//    public void chooseProjectForTask(String projectName) {
+//        clickToElement(appiumDriver, ManageTaskUI.PROJECT_DROPDOWN);
+//        clickToElement(appiumDriver, ManageTaskUI.PROJECT_OPTIONS, projectName);
+//    }
 
     public void clickToSendButton() {
         clickToElement(appiumDriver, ManageTaskUI.SEND_TASK_BUTTON);
@@ -62,5 +62,25 @@ public class ManageTaskPage extends BasePage {
 
     public void clickToScheduleButton() {
         clickToElement(appiumDriver, ManageTaskUI.SCHEDULE_BUTTON_IN_DUEDATE);
+    }
+
+    public void clickToIconAddTask() {
+        isDisplayed(appiumDriver, ManageTaskUI.MORE_ICON_IN_HOME);
+        if (!isElementExist(appiumDriver, ManageTaskUI.ADD_TASK_ICON)){
+            closeAddTask();
+        }
+        clickToElement(appiumDriver, ManageTaskUI.ADD_TASK_ICON);
+    }
+
+    public void clickToOverflowMenu() {
+        clickToElement(appiumDriver, ManageTaskUI.OVERFLOW_MENU_ICON);
+    }
+
+    public void clickToEditTaskButton() {
+        clickToElement(appiumDriver, ManageTaskUI.EDIT_TASK_BUTTON);
+    }
+
+    public void clickToDeleteTaskButton() {
+        clickToElement(appiumDriver, ManageTaskUI.DELETE_TASK_BUTTON);
     }
 }

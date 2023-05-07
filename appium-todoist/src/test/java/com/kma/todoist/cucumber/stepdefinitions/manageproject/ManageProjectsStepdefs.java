@@ -308,7 +308,8 @@ public class ManageProjectsStepdefs extends BaseSteps {
     @Then("Verify delete comment successful")
     public void verifyDeleteCommentSuccessful() {
         String comment = testContext.scenarioContext.getContext(GlobalVariables.COMMENT);
-        Assert.assertFalse(getTextAtribute(appiumDriver, ManageProjectPageUI.COMMENT_LABEL).equals(comment));
+//        Assert.assertFalse(getTextAtribute(appiumDriver, ManageProjectPageUI.COMMENT_LABEL).equals(comment));
+        Assert.assertFalse(isElementExist(appiumDriver, ManageProjectPageUI.COMMENT_TEXT_LABEL),comment);
     }
 
     @And("I click delete project")

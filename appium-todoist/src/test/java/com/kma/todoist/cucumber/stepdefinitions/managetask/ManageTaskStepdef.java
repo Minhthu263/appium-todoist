@@ -36,11 +36,13 @@ public class ManageTaskStepdef extends BaseSteps {
     public void i_click_icon_add_task() {
         log.info("ManageTask - STEP - Click icon Add task");
 //        isDisplayed(appiumDriver, ManageTaskUI.TODAY_LABEL);
-        isDisplayed(appiumDriver, ManageTaskUI.MORE_ICON_IN_HOME);
-        if (!isElementExist(appiumDriver, ManageTaskUI.ADD_TASK_ICON)){
-            manageTask.closeAddTask();
-        }
-        clickToElement(appiumDriver, ManageTaskUI.ADD_TASK_ICON);
+//        isDisplayed(appiumDriver, ManageTaskUI.MORE_ICON_IN_HOME);
+//        if (!isElementExist(appiumDriver, ManageTaskUI.ADD_TASK_ICON)){
+//            manageTask.closeAddTask();
+//        }
+//        clickToElement(appiumDriver, ManageTaskUI.ADD_TASK_ICON);
+
+        manageTask.clickToIconAddTask();
     }
 
     @When("I input information")
@@ -105,7 +107,7 @@ public class ManageTaskStepdef extends BaseSteps {
     @When("I view task {string}")
     public void iViewTask(String taskName) {
         isDisplayed(appiumDriver, ManageTaskUI.TODAY_LABEL);
-        scrollMobileUpToElement(appiumDriver, ManageTaskUI.TASK_NAME_BUTTON, taskName);
+//        scrollMobileUpToElement(appiumDriver, ManageTaskUI.TASK_NAME_BUTTON, taskName);
         clickToElement(appiumDriver, ManageTaskUI.TASK_NAME_BUTTON, taskName);
     }
 
@@ -152,8 +154,9 @@ public class ManageTaskStepdef extends BaseSteps {
     @When("I input to Task name")
     public void iInputToTaskName() {
         String taskName = "Task " + generateNumber();
-        tapThenSenkeysToElement(appiumDriver, ManageTaskUI.TASK_NAME_TEXTBOX, taskName);
         testContext.scenarioContext.setContext(GlobalVariables.TASK_NAME, taskName);
+        manageTask.inputToTaskNameTextbox(taskName);
+//        tapThenSenkeysToElement(appiumDriver, ManageTaskUI.TASK_NAME_TEXTBOX, taskName);
     }
 
     @Then("Verify add task tomorrow")
@@ -249,5 +252,76 @@ public class ManageTaskStepdef extends BaseSteps {
 
     @Then("Verify add task unccessful")
     public void verifyAddTaskUnccessful() {
+    }
+
+    @And("I click to Today")
+    public void iClickToToday() {
+        clickToElement(appiumDriver, ManageTaskUI.TODAY_MENU_BAR);
+    }
+
+    @And("I create task")
+    public void iCreateTask() {
+        String taskName = "Task " + generateNumber();
+        testContext.scenarioContext.setContext(GlobalVariables.TASK_NAME, taskName);
+        manageTask.clickToIconAddTask();
+        manageTask.inputToTaskNameTextbox(taskName);
+        manageTask.clickToSendButton();
+        manageTask.closeAddTask();
+    }
+
+    @When("I click view task")
+    public void iClickViewTask() {
+        String taskName = testContext.scenarioContext.getContext(GlobalVariables.TASK_NAME);
+        isDisplayed(appiumDriver, ManageTaskUI.MORE_ICON_IN_HOME);
+        clickToElement(appiumDriver, ManageTaskUI.TASK_NAME_BUTTON, taskName);
+    }
+
+    @And("I click edit task")
+    public void iClickEditTask() {
+        manageTask.clickToOverflowMenu();
+        manageTask.clickToEditTaskButton();
+    }
+
+    @And("I edit task infomation")
+    public void iEditTaskInfomation() {
+        String taskName = "Task " + generateNumber();
+        testContext.scenarioContext.setContext(GlobalVariables.TASK_NAME, taskName);
+        tapThenSenkeysToElement(appiumDriver, ManageTaskUI.TASK_NAME_TEXTBOX_IN_EDIT_TASK, taskName);
+        clickToElement(appiumDriver, ManageTaskUI.SAVE_BUTTON_IN_EDIT_TASK);
+    }
+
+    @Then("Verify edit task successful")
+    public void verifyEditTaskSuccessful() {
+        String taskName=testContext.scenarioContext.getContext(GlobalVariables.TASK_NAME);
+        Assert.assertTrue(getTextAtribute(appiumDriver, ManageTaskUI.TASK_NAME_TEXTBOX_IN_EDIT_TASK).contains(taskName));
+    }
+
+    @When("I click delete task")
+    public void iClickDeleteTask() {
+        manageTask.clickToOverflowMenu();
+        manageTask.clickToDeleteTaskButton();
+    }
+
+    @And("I choose No")
+    public void iChooseNo() {
+        clickToElement(appiumDriver, ManageTaskUI.CANCEL_BUTTON);
+    }
+
+    @Then("Verify delete task unsuccessful")
+    public void verifyDeleteTaskUnsuccessful() {
+        Assert.assertTrue(isElementExist(appiumDriver,ManageTaskUI.TASK_NAME_TEXTBOX_IN_EDIT_TASK));
+    }
+
+    @And("I choose Yes")
+    public void iChooseYes() {
+        clickToElement(appiumDriver, ManageTaskUI.ACCEPT_BUTTON);
+    }
+
+    @Then("Verify delete task successful")
+    public void verifyDeleteTaskSuccessful() {
+        String taskName = testContext.scenarioContext.getContext(GlobalVariables.TASK_NAME);
+        isDisplayed(appiumDriver, ManageTaskUI.MORE_ICON_IN_HOME);
+//        clickToElement(appiumDriver, ManageTaskUI.TASK_NAME_BUTTON, taskName);
+        Assert.assertFalse(isElementExist(appiumDriver, ManageTaskUI.TASK_NAME_BUTTON, taskName));
     }
 }

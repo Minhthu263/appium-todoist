@@ -2,13 +2,17 @@
 Feature: Create task today
 
   Scenario: Create task unsuccessful
-    Given I click icon Add Task
+    Given I click menu bar
+    And I click to Today
+    And I click icon Add Task
     When I input to Task name
     And I click Discard task
     Then Verify create task unsuccessful
 
   Scenario Outline: Create task successful
-    Given I click icon Add Task
+    Given I click menu bar
+    And I click to Today
+    And I click icon Add Task
     When I input information
       | taskName    | <taskName>    |
       | description | <description> |
