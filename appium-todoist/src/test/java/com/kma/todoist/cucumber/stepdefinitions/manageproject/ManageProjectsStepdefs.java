@@ -6,7 +6,6 @@ import com.kma.todoist.cucumber.Hooks;
 import com.kma.todoist.helper.TestContext;
 import com.kma.todoist.helper.object.Project;
 import com.kma.todoist.interfaces.ManageProjectPageUI;
-import com.kma.todoist.interfaces.ManageTaskUI;
 import com.kma.todoist.pageobjects.ManageProjectPage;
 import com.kma.todoist.pageobjects.PageGeneratorManager;
 import io.appium.java_client.AppiumDriver;
@@ -309,7 +308,7 @@ public class ManageProjectsStepdefs extends BaseSteps {
     public void verifyDeleteCommentSuccessful() {
         String comment = testContext.scenarioContext.getContext(GlobalVariables.COMMENT);
 //        Assert.assertFalse(getTextAtribute(appiumDriver, ManageProjectPageUI.COMMENT_LABEL).equals(comment));
-        Assert.assertFalse(isElementExist(appiumDriver, ManageProjectPageUI.COMMENT_TEXT_LABEL),comment);
+        Assert.assertFalse(isElementExist(appiumDriver, ManageProjectPageUI.COMMENT_TEXT_LABEL), comment);
     }
 
     @And("I click delete project")

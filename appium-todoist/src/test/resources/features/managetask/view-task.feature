@@ -1,4 +1,3 @@
-
 Feature: View task detail
 
   Scenario Outline: View task detail

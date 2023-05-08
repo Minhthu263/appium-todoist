@@ -120,7 +120,7 @@ public class ManageTaskStepdef extends BaseSteps {
         String projectName = data.get("projectName");
 
         SoftAssert softAssert = new SoftAssert();
-        if(taskName != null){
+        if (taskName != null) {
             softAssert.assertTrue(getTextAtribute(appiumDriver, ManageTaskUI.TASK_NAME_LABEL_IN_DETAIL_TASK).contains(taskName));
         }
         if (priority != null && priority != "4") {
@@ -170,10 +170,9 @@ public class ManageTaskStepdef extends BaseSteps {
     public void iChooseThisWeekend() {
         manageTask.clickToDueDateButton();
 
-        if(isElementExist(appiumDriver, ManageTaskUI.THIS_WEEKEND_BUTTON)) {
+        if (isElementExist(appiumDriver, ManageTaskUI.THIS_WEEKEND_BUTTON)) {
             manageTask.clickToThisWeekendButton();
-        }
-        else{
+        } else {
             manageTask.clickToNextWeekendButton();
         }
         testContext.scenarioContext.setContext(GlobalVariables.TASK_DUE_DATE, "Saturday");
@@ -222,7 +221,7 @@ public class ManageTaskStepdef extends BaseSteps {
 
     @When("I click complete task {string}")
     public void iClickCompleteTask(String taskName) {
-        clickToElement(appiumDriver, ManageTaskUI.COMPLETE_TASK_CHECKBOX,taskName);
+        clickToElement(appiumDriver, ManageTaskUI.COMPLETE_TASK_CHECKBOX, taskName);
     }
 
     @Then("Verify complete")
@@ -292,7 +291,7 @@ public class ManageTaskStepdef extends BaseSteps {
 
     @Then("Verify edit task successful")
     public void verifyEditTaskSuccessful() {
-        String taskName=testContext.scenarioContext.getContext(GlobalVariables.TASK_NAME);
+        String taskName = testContext.scenarioContext.getContext(GlobalVariables.TASK_NAME);
         Assert.assertTrue(getTextAtribute(appiumDriver, ManageTaskUI.TASK_NAME_TEXTBOX_IN_EDIT_TASK).contains(taskName));
     }
 
@@ -309,7 +308,7 @@ public class ManageTaskStepdef extends BaseSteps {
 
     @Then("Verify delete task unsuccessful")
     public void verifyDeleteTaskUnsuccessful() {
-        Assert.assertTrue(isElementExist(appiumDriver,ManageTaskUI.TASK_NAME_TEXTBOX_IN_EDIT_TASK));
+        Assert.assertTrue(isElementExist(appiumDriver, ManageTaskUI.TASK_NAME_TEXTBOX_IN_EDIT_TASK));
     }
 
     @And("I choose Yes")

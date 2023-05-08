@@ -10,16 +10,16 @@ Feature: Modify task
     And I edit task infomation
     Then Verify edit task successful
 
-    Scenario: Delete task unsuccessful
+  Scenario: Delete task unsuccessful
 #      Given I click menu bar
 #      And I click to Inbox
-      When I click delete task
-      And I choose No
-      Then Verify delete task unsuccessful
+    When I click delete task
+    And I choose No
+    Then Verify delete task unsuccessful
 
-    Scenario: Delete task successful
+  Scenario: Delete task successful
 #      Given I click menu bar
 #      And I click to Inbox
-      When I click delete task
-      And I choose Yes
-      Then Verify delete task successful
+    When I click delete task
+    And I choose Yes
+    Then Verify delete task successful

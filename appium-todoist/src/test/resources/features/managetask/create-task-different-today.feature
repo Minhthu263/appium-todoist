@@ -1,4 +1,3 @@
-
 Feature: Create task different today
 
   Scenario: Create task in the past
