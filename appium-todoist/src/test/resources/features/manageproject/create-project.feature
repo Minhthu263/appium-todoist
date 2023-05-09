@@ -19,3 +19,4 @@ Feature: Thêm mới project
     And I choose View Board
     And I click to V icon
     Then I check create project successful
+

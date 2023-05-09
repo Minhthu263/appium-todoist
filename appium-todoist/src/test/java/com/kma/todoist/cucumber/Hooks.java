@@ -61,12 +61,12 @@ public class Hooks extends BaseSteps {
             //      log.info("-----------Start the device---------------");
             driver.manage().timeouts().implicitlyWait(GlobalVariables.TIME_OUT, TimeUnit.SECONDS);
         }
-        File path = new File(String.join(File.separator, System.getProperty("user.dir"), "screenshot"));
-        try {
-            FileUtils.cleanDirectory(path);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        File path = new File(String.join(File.separator, System.getProperty("user.dir"), "screenshot"));
+//        try {
+//            FileUtils.cleanDirectory(path);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
         return driver;
     }
 
@@ -105,31 +105,31 @@ public class Hooks extends BaseSteps {
             System.out.println("Can not close the browser");
         }
     }
+//
+//    public static void tearDownApp(Scenario scenario) {
+//        if (scenario.isFailed()) {
+//            log.info("------------- " + scenario.getName() + " -------------" + scenario.getStatus());
+//            log.info("------------- DRIVER DOWN -------------");
+////            driver.closeApp();
+//            driver = null;
+//        } else {
+//            log.info("------------- " + scenario.getName() + " -------------" + scenario.getStatus());
+//        }
+//    }
 
-    public static void tearDownApp(Scenario scenario) throws IOException {
-        if (scenario.isFailed()) {
-            log.info("------------- " + scenario.getName() + " -------------" + scenario.getStatus());
-            log.info("------------- DRIVER DOWN -------------");
-//            driver.closeApp();
-            driver = null;
-        } else {
-            log.info("------------- " + scenario.getName() + " -------------" + scenario.getStatus());
-        }
-    }
+//    private static String nameImage() {
+//        return UUID.randomUUID().toString();
+//    }
 
-    private static String nameImage() {
-        return UUID.randomUUID().toString();
-    }
-
-    public AppiumDriver<MobileElement> getDriver() {
-        return driver;
-    }
+//    public AppiumDriver<MobileElement> getDriver() {
+//        return driver;
+//    }
 
     @After
     public void tearDown(Scenario scenario) throws IOException {
         if (scenario.isFailed()) {
 //            addScreenshot();
-            scenario.attach(Files.readAllBytes(lastestImage()), "png", scenario.getName());
+//            scenario.attach(Files.readAllBytes(lastestImage()), "png", scenario.getName());
             log.info("------------- " + scenario.getName() + " -------------" + scenario.getStatus());
             log.info("------------- DRIVER DOWN -------------");
             driver.closeApp();
@@ -171,17 +171,17 @@ public class Hooks extends BaseSteps {
 //        }
 //    }
 
-    private Path lastestImage() {
-        File root = new File(String.join(File.separator, System.getProperty("user.dir"), "screenshot"));
-        File[] images = root.listFiles(file -> file.isFile() && file.getName().toLowerCase().endsWith(".png"));
-        File lastestImg = images[0];
-        for (File image : images) {
-            if (image.lastModified() > lastestImg.lastModified()) {
-                lastestImg = image;
-            }
-        }
-        return lastestImg.toPath();
-    }
+//    private Path lastestImage() {
+//        File root = new File(String.join(File.separator, System.getProperty("user.dir"), "screenshot"));
+//        File[] images = root.listFiles(file -> file.isFile() && file.getName().toLowerCase().endsWith(".png"));
+//        File lastestImg = images[0];
+//        for (File image : images) {
+//            if (image.lastModified() > lastestImg.lastModified()) {
+//                lastestImg = image;
+//            }
+//        }
+//        return lastestImg.toPath();
+//    }
 
     private static class BrowserCleanup implements Runnable {
         @Override

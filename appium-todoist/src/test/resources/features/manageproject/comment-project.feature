@@ -4,18 +4,18 @@ Feature: Comment project
     Given I click menu bar
     And I click Manage project
     When I click Comment project
-    And I input comment with "Xin Chao"
+    And I input comment with "Comment 1"
     Then Verify comment successful
 
   Scenario: Edit Comment unsuccessful
     When I click edit comment
-    And I input edit comment with "Xin Chao part123"
+    And I input edit comment with "Comment edit"
     And I click cancel button
     Then Verify comment unsuccessful
 
   Scenario: Edit Comment successful
     When I click edit comment
-    And I input edit comment with "Xin Chao part2"
+    And I input edit comment with "Comment edit"
     And I click ok button
     Then Verify edit comment successful
 

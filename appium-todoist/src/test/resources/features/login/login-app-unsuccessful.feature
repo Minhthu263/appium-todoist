@@ -1,4 +1,4 @@
-@login
+@login @check
 Feature: Kiểm tra login app unsuccessful
 
   Scenario: Login app with Email available
@@ -27,7 +27,7 @@ Feature: Kiểm tra login app unsuccessful
     Then Verify button Login is disable
 
   Scenario: Login app with Email new2
-    When I input username with "1@g.vn"
+    When I input username with "taminhthu263@gmail.com"
     And I input password with ""
     Then Verify button Login is disable
     And Close app
