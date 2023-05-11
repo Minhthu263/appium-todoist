@@ -1,13 +1,13 @@
-@login
+@login @parallel1
 Feature: Kiểm tra login app successful
 
-  @parallel1
+  @parallel2
   Scenario: Login app with Google
     When I click Continue with Google
     When I choose account
     Then Verify login successful
 
-  @parallel2
+  @parallel1
   Scenario: Login app with Email
     Given I click Continue with more options
     And I click Login with Email

@@ -281,12 +281,11 @@ public class ManageTaskStepdef extends BaseSteps {
         manageTask.clickToEditTaskButton();
     }
 
-    @And("I edit task infomation")
+    @And("I edit task information")
     public void iEditTaskInfomation() {
         String taskName = "Task " + generateNumber();
         testContext.scenarioContext.setContext(GlobalVariables.TASK_NAME, taskName);
         tapThenSenkeysToElement(appiumDriver, ManageTaskUI.TASK_NAME_TEXTBOX_IN_EDIT_TASK, taskName);
-        clickToElement(appiumDriver, ManageTaskUI.SAVE_BUTTON_IN_EDIT_TASK);
     }
 
     @Then("Verify edit task successful")
@@ -322,5 +321,35 @@ public class ManageTaskStepdef extends BaseSteps {
         isDisplayed(appiumDriver, ManageTaskUI.MORE_ICON_IN_HOME);
 //        clickToElement(appiumDriver, ManageTaskUI.TASK_NAME_BUTTON, taskName);
         Assert.assertFalse(isElementExist(appiumDriver, ManageTaskUI.TASK_NAME_BUTTON, taskName));
+    }
+
+    @And("I edit task information with {string}")
+    public void iEditTaskInfomationWith(String taskName) {
+        testContext.scenarioContext.setContext(GlobalVariables.TASK_NAME, taskName);
+        tapThenSenkeysToElement(appiumDriver, ManageTaskUI.TASK_NAME_TEXTBOX_IN_EDIT_TASK, taskName);
+    }
+
+    @Then("Verify edit task unsuccessful")
+    public void verifyEditTaskUnsuccessful() {
+        Assert.assertEquals(getAttribute(appiumDriver,ManageTaskUI.SAVE_BUTTON_IN_EDIT_TASK, "enabled"),"false");
+        clickToElement(appiumDriver, ManageTaskUI.BACK_BUTTON_IN_EDIT_TASK);
+        clickToElement(appiumDriver, ManageTaskUI.ACCEPT_BUTTON);
+    }
+
+    @And("I click to Save")
+    public void iClickToSave() {
+        clickToElement(appiumDriver, ManageTaskUI.SAVE_BUTTON_IN_EDIT_TASK);
+    }
+
+    @And("I click Back")
+    public void iClickBack() {
+        clickToElement(appiumDriver, ManageTaskUI.BACK_BUTTON_IN_EDIT_TASK);
+        clickToElement(appiumDriver, ManageTaskUI.ACCEPT_BUTTON);
+    }
+
+    @Then("Verify edit task unsuccessful when back")
+    public void verifyEditTaskUnsuccessfulWhenBack() {
+        String taskName = testContext.scenarioContext.getContext(GlobalVariables.TASK_NAME);
+        Assert.assertFalse(getTextAtribute(appiumDriver, ManageTaskUI.TASK_NAME_TEXTBOX_IN_EDIT_TASK).contains(taskName));
     }
 }

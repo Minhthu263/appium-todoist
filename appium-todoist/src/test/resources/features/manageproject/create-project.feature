@@ -1,3 +1,4 @@
+
 Feature: Thêm mới project
 
   Scenario: Thêm mới dự án thành công khi nhập tên
@@ -8,7 +9,7 @@ Feature: Thêm mới project
     And I click to V icon
     Then I check create project successful
 
-  Scenario: Thêm mới dự án thành công khi nhập tên
+  Scenario: Thêm mới dự án thành công khi nhập full thông tin
     Given I click menu bar
     And I click Manage project
     When I click + Add project

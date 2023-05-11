@@ -1,3 +1,4 @@
+
 Feature: Delete project
 
   Scenario: Delete project unsuccessful

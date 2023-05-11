@@ -105,25 +105,25 @@ public class Hooks extends BaseSteps {
             System.out.println("Can not close the browser");
         }
     }
-//
-//    public static void tearDownApp(Scenario scenario) {
-//        if (scenario.isFailed()) {
-//            log.info("------------- " + scenario.getName() + " -------------" + scenario.getStatus());
-//            log.info("------------- DRIVER DOWN -------------");
-////            driver.closeApp();
-//            driver = null;
-//        } else {
-//            log.info("------------- " + scenario.getName() + " -------------" + scenario.getStatus());
-//        }
-//    }
+
+    public static void tearDownApp(Scenario scenario) {
+        if (scenario.isFailed()) {
+            log.info("------------- " + scenario.getName() + " -------------" + scenario.getStatus());
+            log.info("------------- DRIVER DOWN -------------");
+//            driver.closeApp();
+            driver = null;
+        } else {
+            log.info("------------- " + scenario.getName() + " -------------" + scenario.getStatus());
+        }
+    }
 
 //    private static String nameImage() {
 //        return UUID.randomUUID().toString();
 //    }
 
-//    public AppiumDriver<MobileElement> getDriver() {
-//        return driver;
-//    }
+    public AppiumDriver<MobileElement> getDriver() {
+        return driver;
+    }
 
     @After
     public void tearDown(Scenario scenario) throws IOException {
@@ -132,8 +132,8 @@ public class Hooks extends BaseSteps {
 //            scenario.attach(Files.readAllBytes(lastestImage()), "png", scenario.getName());
             log.info("------------- " + scenario.getName() + " -------------" + scenario.getStatus());
             log.info("------------- DRIVER DOWN -------------");
-            driver.closeApp();
-//            driver = null;
+//            driver.closeApp();
+            driver = null;
         } else {
 //            addScreenshot();
             log.info("------------- " + scenario.getName() + " -------------" + scenario.getStatus());

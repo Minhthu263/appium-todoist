@@ -40,4 +40,5 @@ public class ManageTaskUI {
     public static final String SAVE_BUTTON_IN_EDIT_TASK = "//android.widget.Button[@resource-id='com.todoist:id/item_submit']";
     public static final String CANCEL_BUTTON = "//android.widget.Button[@resource-id='android:id/button2']";
     public static final String ACCEPT_BUTTON = "//android.widget.Button[@resource-id='android:id/button1']";
+    public static final String BACK_BUTTON_IN_EDIT_TASK = "//android.widget.ImageButton";
 }

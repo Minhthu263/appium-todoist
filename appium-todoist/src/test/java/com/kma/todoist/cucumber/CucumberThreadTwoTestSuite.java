@@ -4,8 +4,8 @@ import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
-        plugin = {"pretty"},
         features = "src/test/resources/features",
+        plugin = {"pretty"},
         tags = "@parallel2 and not @ignore"
 )
 public class CucumberThreadTwoTestSuite extends AbstractTestNGCucumberTests {
