@@ -1,0 +1,18 @@
+<?xml version = "1.0"encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite1" parallel="tests" thread-count="2">
+    <test name="Test Demo">
+        <parameter name="udid" value="426b1a53"></parameter>
+        <parameter name="hub" value="127.0.0.1/wd/hub:4723"></parameter>
+        <classes>
+            <class name="com.kma.todoist.cucumber.CucumberThreadOneTestSuite"/>
+        </classes>
+    </test>
+    <test name="Test Demo 2">
+        <parameter name="udid" value="emulator-5554"></parameter>
+        <parameter name="hub" value="127.0.0.1/wd/hub:4733"></parameter>
+        <classes>
+            <class name="com.kma.todoist.cucumber.CucumberThreadTwoTestSuite"/>
+        </classes>
+    </test>
+</suite>

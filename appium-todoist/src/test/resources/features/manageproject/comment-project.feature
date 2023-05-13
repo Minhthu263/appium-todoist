@@ -1,4 +1,4 @@
-
+@check
 Feature: Comment project
 
   Scenario: Comment project

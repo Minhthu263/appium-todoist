@@ -3,12 +3,7 @@
 <suite name="Suite1">
     <test name="Test Demo">
         <classes>
-            <class name="com.kma.todoist.cucumber.CucumberThreadOneTestSuite"/>
-        </classes>
-    </test>
-    <test name="Test Demo 2">
-        <classes>
-            <class name="com.kma.todoist.cucumber.CucumberThreadTwoTestSuite"/>
+            <class name="com.kma.todoist.cucumber.DebugRunner"/>
         </classes>
     </test>
 </suite>

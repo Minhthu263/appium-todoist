@@ -1,4 +1,4 @@
-
+@check
 Feature: Thêm mới project
 
   Scenario: Thêm mới dự án thành công khi nhập tên

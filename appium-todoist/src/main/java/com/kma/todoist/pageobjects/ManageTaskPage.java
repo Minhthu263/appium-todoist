@@ -60,6 +60,9 @@ public class ManageTaskPage extends BasePage {
     public void clickToNextWeekendButton() {
         clickToElement(appiumDriver, ManageTaskUI.NEXT_WEEKEND_BUTTON);
     }
+    public void clickToNextWeekButton() {
+        clickToElement(appiumDriver, ManageTaskUI.NEXT_WEEK_BUTTON);
+    }
 
     public void clickToScheduleButton() {
         clickToElement(appiumDriver, ManageTaskUI.SCHEDULE_BUTTON_IN_DUEDATE);

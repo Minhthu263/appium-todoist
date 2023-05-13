@@ -33,6 +33,7 @@ public class ManageTaskUI {
     public static final String COMPLETE_MSG = "//android.widget.TextView[@text='Completed.']";
     public static final String DISCARD_TASK_BUTTON = "//android.widget.Button[@text='DISCARD']";
     public static final String NEXT_WEEKEND_BUTTON = "//android.widget.TextView[@resource-id='android:id/text1' and @text='Next weekend']";
+    public static final String NEXT_WEEK_BUTTON = "//android.widget.TextView[@resource-id='android:id/text1' and @text='Next week']";
     public static final String OVERFLOW_MENU_ICON = "//android.widget.ImageView[@content-desc='Overflow menu']";
     public static final String EDIT_TASK_BUTTON = "//android.widget.TextView[@resource-id='com.todoist:id/edit']";
     public static final String DELETE_TASK_BUTTON = "//android.widget.TextView[@resource-id='com.todoist:id/delete']";

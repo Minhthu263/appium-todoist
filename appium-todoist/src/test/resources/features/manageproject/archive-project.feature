@@ -1,4 +1,4 @@
-
+@check
 Feature: Archive project
 
   Scenario: Archive project unsuccessful

@@ -123,7 +123,7 @@ public class ManageTaskStepdef extends BaseSteps {
         if (taskName != null) {
             softAssert.assertTrue(getTextAtribute(appiumDriver, ManageTaskUI.TASK_NAME_LABEL_IN_DETAIL_TASK).contains(taskName));
         }
-        if (priority != null && priority != "4") {
+        if (priority != null && !priority.equals("4")) {
             softAssert.assertEquals(getTextAtribute(appiumDriver, ManageTaskUI.PRIORITY_LABEL_IN_DETAIL_TASK), "Priority " + priority);
         }
         if (label != null) {
@@ -172,10 +172,15 @@ public class ManageTaskStepdef extends BaseSteps {
 
         if (isElementExist(appiumDriver, ManageTaskUI.THIS_WEEKEND_BUTTON)) {
             manageTask.clickToThisWeekendButton();
-        } else {
+            testContext.scenarioContext.setContext(GlobalVariables.TASK_DUE_DATE, "Saturday");
+        } else if (isElementExist(appiumDriver, ManageTaskUI.NEXT_WEEKEND_BUTTON)){
             manageTask.clickToNextWeekendButton();
+            testContext.scenarioContext.setContext(GlobalVariables.TASK_DUE_DATE, "Saturday");
+        } else {
+            manageTask.clickToNextWeekButton();
+            testContext.scenarioContext.setContext(GlobalVariables.TASK_DUE_DATE, "Monday");
         }
-        testContext.scenarioContext.setContext(GlobalVariables.TASK_DUE_DATE, "Saturday");
+//        testContext.scenarioContext.setContext(GlobalVariables.TASK_DUE_DATE, "Saturday");
 
     }
 

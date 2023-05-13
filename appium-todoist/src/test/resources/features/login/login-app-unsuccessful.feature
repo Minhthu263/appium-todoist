@@ -1,6 +1,6 @@
-@login
+@login @check
 Feature: Kiểm tra login app unsuccessful
-@check
+
   Scenario: Login app with Email available
     Given I click Continue with more options
     And I click Login with Email
