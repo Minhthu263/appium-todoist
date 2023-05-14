@@ -13,11 +13,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -212,14 +210,6 @@ public class BasePage {
 
     protected String getAttribute(AppiumDriver<MobileElement> appiumDriver, String locator, String nameAtribute, String... value) {
         return findElementByXpath(appiumDriver, locator, value).getAttribute(nameAtribute);
-    }
-
-    protected int convertMoneyTextToInt(String money) {
-        return Integer.parseInt(money.replace(",", ""));
-    }
-
-    protected String convertMoneyIntToString(int money) {
-        return String.format("%,d", money);
     }
 
     public String getContentdescAtribute(AppiumDriver<MobileElement> appiumDriver, String locator) {
@@ -459,35 +449,4 @@ public class BasePage {
         return (faker.random().nextInt(100));
     }
 
-    protected String generateNameCustomer() {
-        Faker faker = new Faker();
-        faker.random().toString();
-        return (faker.name().fullName() + faker.name().firstName()).replace("'", "");
-    }
-
-    protected String generateProductName() {
-        Faker faker = new Faker();
-        return faker.commerce().productName().replace("'", "");
-    }
-
-    protected String generateEmail() {
-        Faker faker = new Faker();
-        return faker.internet().emailAddress();
-    }
-
-    protected String generatePhoneNumber() {
-        Faker faker = new Faker();
-        return faker.phoneNumber().subscriberNumber(10);
-    }
-
-    protected String getCurrentTime() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        Calendar c = Calendar.getInstance();
-        return sdf.format(c.getTime()) + "+07:00";
-    }
-
-    protected Date covertStringToDate(String format, String date) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat(format);
-        return sdf.parse(date);
-    }
 }

@@ -2,6 +2,7 @@ package com.kma.todoist.cucumber.stepdefinitions.managetask;
 
 import com.kma.todoist.common.BaseSteps;
 import com.kma.todoist.common.GlobalVariables;
+import com.kma.todoist.common.TestListener;
 import com.kma.todoist.cucumber.Hooks;
 import com.kma.todoist.helper.TestContext;
 import com.kma.todoist.helper.object.Task;
@@ -15,10 +16,12 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.asserts.SoftAssert;
 
 import java.util.Map;
 
+@Listeners({TestListener.class})
 public class ManageTaskStepdef extends BaseSteps {
     AppiumDriver<MobileElement> appiumDriver;
     TestContext testContext;
@@ -27,7 +30,8 @@ public class ManageTaskStepdef extends BaseSteps {
 
     public ManageTaskStepdef(TestContext context) {
         super(context);
-        this.appiumDriver = Hooks.openAndQuitApp();
+//        this.appiumDriver = Hooks.openAndQuitApp();
+        this.appiumDriver = Hooks.getDriver();
         manageTask = PageGeneratorManager.getManageTaskPage(appiumDriver);
         testContext = context;
     }

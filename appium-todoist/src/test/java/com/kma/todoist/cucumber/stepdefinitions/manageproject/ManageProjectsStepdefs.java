@@ -2,6 +2,7 @@ package com.kma.todoist.cucumber.stepdefinitions.manageproject;
 
 import com.kma.todoist.common.BaseSteps;
 import com.kma.todoist.common.GlobalVariables;
+import com.kma.todoist.common.TestListener;
 import com.kma.todoist.cucumber.Hooks;
 import com.kma.todoist.helper.TestContext;
 import com.kma.todoist.helper.object.Project;
@@ -14,10 +15,12 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 
 import java.util.List;
 import java.util.Map;
 
+@Listeners({TestListener.class})
 public class ManageProjectsStepdefs extends BaseSteps {
     AppiumDriver<MobileElement> appiumDriver;
     TestContext testContext;
@@ -25,7 +28,8 @@ public class ManageProjectsStepdefs extends BaseSteps {
 
     public ManageProjectsStepdefs(TestContext context) {
         super(context);
-        this.appiumDriver = Hooks.openAndQuitApp();
+//        this.appiumDriver = Hooks.openAndQuitApp();
+        this.appiumDriver = Hooks.getDriver();
         manageProject = PageGeneratorManager.getManageProjectPage(appiumDriver);
         testContext = context;
     }

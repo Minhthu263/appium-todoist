@@ -1,6 +1,7 @@
-@check
+@parallel3
 Feature: Create task different today
 
+  @parallel4
   Scenario: Create task in the past
     Given I click menu bar
     And I click to Inbox
@@ -18,7 +19,6 @@ Feature: Create task different today
     And I click Send button
     Then Verify add task different today
 
-  @check1
   Scenario: Create task This weekend
     Given I click menu bar
     And I click to Inbox

@@ -1,4 +1,4 @@
-@login @check
+@login @parallel1
 Feature: Kiểm tra login app unsuccessful
 
   Scenario: Login app with Email available

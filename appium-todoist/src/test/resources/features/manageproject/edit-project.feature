@@ -1,4 +1,4 @@
-@check
+@parallel1
 Feature: Chỉnh sửa project
 
   @PROJECT_03

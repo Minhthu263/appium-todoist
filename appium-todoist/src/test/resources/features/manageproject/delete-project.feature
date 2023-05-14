@@ -1,4 +1,4 @@
-@check
+@parallel1
 Feature: Delete project
 
   Scenario: Delete project unsuccessful

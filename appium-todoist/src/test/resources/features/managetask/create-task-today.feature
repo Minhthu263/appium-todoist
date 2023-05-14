@@ -1,7 +1,7 @@
-@check
+@parallel2
 Feature: Create task today
 
-  Scenario: Create task unsuccessful
+  Scenario: Logib234 task unsuccessful
     Given I click menu bar
     And I click to Today
     And I click icon Add Task
@@ -9,7 +9,7 @@ Feature: Create task today
     And I click Discard task
     Then Verify create task unsuccessful
 
-  Scenario Outline: Create task successful
+  Scenario Outline: <taskName> task successful
     Given I click menu bar
     And I click to Today
     And I click icon Add Task

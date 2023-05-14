@@ -6,7 +6,7 @@ import io.cucumber.testng.CucumberOptions;
 @CucumberOptions(
         features = "src/test/resources/features",
         plugin = {"pretty"},
-        tags = "@check"
+        tags = "@check1"
 )
 public class DebugRunner extends AbstractTestNGCucumberTests {
 

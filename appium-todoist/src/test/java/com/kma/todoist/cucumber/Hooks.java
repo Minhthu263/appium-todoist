@@ -12,23 +12,29 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.UnreachableBrowserException;
+import org.testng.annotations.AfterSuite;
 
-import java.io.File;
-import java.io.IOException;
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.UUID;
+import java.nio.file.Paths;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class Hooks extends BaseSteps {
 
     public static AppiumDriver<MobileElement> driver = null;
-//    private static TestContext testContext;
 
     public Hooks(TestContext context) {
         super(context);
-//        testContext = context;
     }
 
     @Before
@@ -57,16 +63,8 @@ public class Hooks extends BaseSteps {
                     Runtime.getRuntime().addShutdownHook(new Thread(new BrowserCleanup()));
                 }
             }
-
-            //      log.info("-----------Start the device---------------");
             driver.manage().timeouts().implicitlyWait(GlobalVariables.TIME_OUT, TimeUnit.SECONDS);
         }
-//        File path = new File(String.join(File.separator, System.getProperty("user.dir"), "screenshot"));
-//        try {
-//            FileUtils.cleanDirectory(path);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
         return driver;
     }
 
@@ -82,7 +80,7 @@ public class Hooks extends BaseSteps {
             } finally {
                 Runtime.getRuntime().addShutdownHook(new Thread(new BrowserCleanup()));
             }
-            //      log.info("-----------Start the device---------------");
+            log.info("-----------Start the device---------------");
             driver.manage().timeouts().implicitlyWait(GlobalVariables.TIME_OUT, TimeUnit.SECONDS);
         }
         File path = new File(String.join(File.separator, System.getProperty("user.dir"), "screenshot"));
@@ -97,7 +95,8 @@ public class Hooks extends BaseSteps {
     public static void close() {
         try {
             if (driver != null) {
-                openAndQuitApp().quit();
+//                openAndQuitApp().quit();
+                driver.quit();
                 driver = null;
                 log.info("------------- Closed the browser -------------");
             }
@@ -117,71 +116,69 @@ public class Hooks extends BaseSteps {
         }
     }
 
-//    private static String nameImage() {
-//        return UUID.randomUUID().toString();
-//    }
-
-    public AppiumDriver<MobileElement> getDriver() {
+    public static AppiumDriver<MobileElement> getDriver() {
         return driver;
     }
 
     @After
     public void tearDown(Scenario scenario) throws IOException {
         if (scenario.isFailed()) {
-//            addScreenshot();
-//            scenario.attach(Files.readAllBytes(lastestImage()), "png", scenario.getName());
+            addScreenshot(scenario);
+            scenario.attach(Files.readAllBytes(addScreenshot(scenario)), "png", scenario.getName());
+
             log.info("------------- " + scenario.getName() + " -------------" + scenario.getStatus());
             log.info("------------- DRIVER DOWN -------------");
 //            driver.closeApp();
             driver = null;
         } else {
-//            addScreenshot();
             log.info("------------- " + scenario.getName() + " -------------" + scenario.getStatus());
         }
     }
 
-//    public static void ScreenShot() {
-//        ReportPortalMessage message = null;
-//        String folderName = "screenshot";
-//        File screenshotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-//        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy__hh_mm_sssaa");
-//        new File(folderName).mkdir();
-//        String fileName = dateFormat.format(new Date()) + ".png";
+//    @After
+//    public void sendEmail() throws IOException, MessagingException {
+//        Properties props = new Properties();
+//        props.put("mail.smtp.auth", "true");
+//        props.put("mail.smtp.starttls.enable", "true");
+//        props.put("mail.smtp.host", "smtp.gmail.com");
+//        props.put("mail.smtp.port", "587");
 //
-//        try {
-//            FileUtils.copyFile(screenshotFile, new File(folderName + "/" + fileName));
-//            message = new ReportPortalMessage(screenshotFile, fileName);
-//        } catch (Exception e) {
-//        }
-//    }
+//        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+//            protected PasswordAuthentication getPasswordAuthentication() {
+//                return new PasswordAuthentication("thu.ttm@kiotviet.com", "bcqweyzczjahswmj");
+//            }
+//        });
 //
-//    public static void addScreenshot() {
-//        ReportPortalMessage message = null;
-//        String folderName = "screenshot";
-//        File screenshotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-//        String string = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BASE64);
-//        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy__hh_mm_sssaa");
-//        new File(folderName).mkdir();
-//        String fileName = dateFormat.format(new Date()) + ".png";
+//        MimeMessage message = new MimeMessage(session);
+//        message.setFrom(new InternetAddress("thu.ttm@kiotviet.com"));
+//        message.addRecipient(Message.RecipientType.TO, new InternetAddress("taminhthu263@gmal.com"));
+//        message.setSubject("Test Results");
+//        message.setText("Attached are the test results");
 //
-//        try {
-//            FileUtils.copyFile(screenshotFile, new File(folderName + "/" + fileName));
-//            //  message = new ReportPortalMessage(string);
-//        } catch (Exception e) {
-//        }
+//        MimeBodyPart attachmentPart = new MimeBodyPart();
+//        attachmentPart.attachFile(new File("/Users/minhthu/Documents/Automation/Auto_Mobile/GraduationProject/appium-todoist/target/surefire-reports/old/index.html"));
+//
+//        Multipart multipart = new MimeMultipart();
+//        multipart.addBodyPart(attachmentPart);
+//
+//        message.setContent(multipart);
+//
+//        Transport.send(message);
+//
+//        log.info("DDAX GUIW NEF");
 //    }
 
-//    private Path lastestImage() {
-//        File root = new File(String.join(File.separator, System.getProperty("user.dir"), "screenshot"));
-//        File[] images = root.listFiles(file -> file.isFile() && file.getName().toLowerCase().endsWith(".png"));
-//        File lastestImg = images[0];
-//        for (File image : images) {
-//            if (image.lastModified() > lastestImg.lastModified()) {
-//                lastestImg = image;
-//            }
-//        }
-//        return lastestImg.toPath();
-//    }
+    public static Path addScreenshot(Scenario scenario) {
+        String folderName = "screenshot";
+        File screenshotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        new File(folderName);
+        String fileName = scenario.getName() + ".png";
+        try {
+            FileUtils.copyFile(screenshotFile, new File(folderName + "/" + fileName));
+        } catch (Exception ignored) {
+        }
+        return Paths.get(folderName + "/" + fileName);
+    }
 
     private static class BrowserCleanup implements Runnable {
         @Override
@@ -189,5 +186,7 @@ public class Hooks extends BaseSteps {
             close();
         }
     }
+
+
 
 }

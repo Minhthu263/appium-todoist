@@ -1,6 +1,7 @@
 package com.kma.todoist.cucumber.stepdefinitions;
 
 import com.kma.todoist.common.BaseSteps;
+import com.kma.todoist.common.TestListener;
 import com.kma.todoist.cucumber.Hooks;
 import com.kma.todoist.helper.TestContext;
 import com.kma.todoist.interfaces.HomePageUI;
@@ -10,7 +11,9 @@ import com.kma.todoist.pageobjects.PageGeneratorManager;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.cucumber.java.en.Given;
+import org.testng.annotations.Listeners;
 
+@Listeners({TestListener.class})
 public class HomePageStepdefs extends BaseSteps {
     AppiumDriver<MobileElement> appiumDriver;
     LoginPage loginPage;
@@ -19,7 +22,8 @@ public class HomePageStepdefs extends BaseSteps {
 
     public HomePageStepdefs(TestContext context) {
         super(context);
-        this.appiumDriver = Hooks.openAndQuitApp();
+//        this.appiumDriver = Hooks.openAndQuitApp();
+        this.appiumDriver = Hooks.getDriver();
         homePage = PageGeneratorManager.getHomePage(appiumDriver);
         testContext = context;
     }

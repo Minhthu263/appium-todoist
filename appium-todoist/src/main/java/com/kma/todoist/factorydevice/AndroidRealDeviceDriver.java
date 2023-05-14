@@ -13,13 +13,12 @@ import static com.kma.todoist.helper.LoadDevicesConfig.LOAD_DEVICES_CONFIG;
 
 public class AndroidRealDeviceDriver implements DeviceFactory {
     private AppiumDriver<MobileElement> driver;
-//    LoginPage loginPage;
 
     @Override
     public AppiumDriver<MobileElement> getMobileDriver() {
         DesiredCapabilities caps = getDesiredCapabilities();
         try {
-            driver = new AppiumDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), caps);
+            driver = new AppiumDriver<>(new URL(hub), caps);
             LoginPage loginPage = PageGeneratorManager.getLoginPage(driver);
             loginPage.loginApp();
         } catch (MalformedURLException e) {
@@ -32,7 +31,7 @@ public class AndroidRealDeviceDriver implements DeviceFactory {
     public AppiumDriver<MobileElement> getMobileDriverWithoutLogin() {
         DesiredCapabilities caps = getDesiredCapabilities();
         try {
-            driver = new AppiumDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), caps);
+            driver = new AppiumDriver<>(new URL(hub), caps);
         } catch (MalformedURLException e) {
             e.printStackTrace();
             throw new RuntimeException("Error create appium session");
