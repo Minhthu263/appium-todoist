@@ -1,7 +1,5 @@
 package com.kma.todoist.cucumber;
 
-//import com.epam.reportportal.message.ReportPortalMessage;
-
 import com.kma.todoist.common.BaseSteps;
 import com.kma.todoist.common.GlobalVariables;
 import com.kma.todoist.factorydevice.AndroidRealDeviceDriver;
@@ -15,18 +13,11 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.UnreachableBrowserException;
-import org.testng.annotations.AfterSuite;
 
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class Hooks extends BaseSteps {
