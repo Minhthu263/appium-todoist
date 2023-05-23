@@ -10,7 +10,6 @@ import com.kma.todoist.pageobjects.PageGeneratorManager;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.cucumber.java.en.Given;
-import org.testng.annotations.Listeners;
 
 public class HomePageStepdefs extends BaseSteps {
     AppiumDriver<MobileElement> appiumDriver;

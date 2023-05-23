@@ -1,4 +1,4 @@
-@parallel2 @check
+@parallel2
 Feature: Create task today
 
   Scenario: Logib234 task unsuccessful
