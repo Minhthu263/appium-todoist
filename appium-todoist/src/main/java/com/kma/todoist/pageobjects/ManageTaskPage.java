@@ -70,9 +70,9 @@ public class ManageTaskPage extends BasePage {
 
     public void clickToIconAddTask() {
         isDisplayed(appiumDriver, ManageTaskUI.MORE_ICON_IN_HOME);
-        if (!isElementExist(appiumDriver, ManageTaskUI.ADD_TASK_ICON)) {
-            closeAddTask();
-        }
+//        if (!isElementExist(appiumDriver, ManageTaskUI.ADD_TASK_ICON)) {
+//            closeAddTask();
+//        }
         clickToElement(appiumDriver, ManageTaskUI.ADD_TASK_ICON);
     }
 
@@ -86,5 +86,11 @@ public class ManageTaskPage extends BasePage {
 
     public void clickToDeleteTaskButton() {
         clickToElement(appiumDriver, ManageTaskUI.DELETE_TASK_BUTTON);
+    }
+
+    public void checkDisplayTaskNameButton() {
+        if (!isElementExist(appiumDriver, ManageTaskUI.ADD_TASK_ICON)) {
+            closeAddTask();
+        }
     }
 }

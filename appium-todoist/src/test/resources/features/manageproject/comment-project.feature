@@ -1,4 +1,4 @@
-@parallel3
+@parallel1
 Feature: Comment project
 
   Scenario: Comment project

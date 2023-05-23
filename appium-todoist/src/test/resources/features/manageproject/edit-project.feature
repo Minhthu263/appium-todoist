@@ -1,7 +1,6 @@
 @parallel1
 Feature: Chỉnh sửa project
 
-  @PROJECT_03
   Scenario Outline: Chỉnh sửa project
     Given I click menu bar
     And I click Manage project

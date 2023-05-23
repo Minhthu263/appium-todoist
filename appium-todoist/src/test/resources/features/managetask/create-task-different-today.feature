@@ -1,7 +1,6 @@
-@parallel3
+@parallel2
 Feature: Create task different today
 
-  @parallel4
   Scenario: Create task in the past
     Given I click menu bar
     And I click to Inbox

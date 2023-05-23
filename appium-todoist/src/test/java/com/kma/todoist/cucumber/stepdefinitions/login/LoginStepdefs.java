@@ -1,7 +1,6 @@
 package com.kma.todoist.cucumber.stepdefinitions.login;
 
 import com.kma.todoist.common.BaseSteps;
-import com.kma.todoist.common.TestListener;
 import com.kma.todoist.cucumber.Hooks;
 import com.kma.todoist.helper.TestContext;
 import com.kma.todoist.interfaces.LoginPageUI;
@@ -15,9 +14,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.qameta.allure.Step;
 import org.testng.Assert;
-import org.testng.annotations.Listeners;
 
-@Listeners({TestListener.class})
 public class LoginStepdefs extends BaseSteps {
     AppiumDriver<MobileElement> appiumDriver;
     LoginPage loginPage;
@@ -25,8 +22,8 @@ public class LoginStepdefs extends BaseSteps {
 
     public LoginStepdefs(TestContext context) {
         super(context);
-//        this.appiumDriver = Hooks.openAndQuitApp();
-        this.appiumDriver = Hooks.getDriver();
+        this.appiumDriver = Hooks.openAndQuitApp();
+//        this.appiumDriver = Hooks.getDriver();
         loginPage = PageGeneratorManager.getLoginPage(appiumDriver);
         testContext = context;
     }

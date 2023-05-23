@@ -1,4 +1,4 @@
-@parallel2
+@parallel2 @check
 Feature: Create task today
 
   Scenario: Logib234 task unsuccessful
@@ -41,4 +41,4 @@ Feature: Create task today
       | task6    |             | 4        |       |               |
       | task7    |             |          | Salon |               |
       | task8    |             |          |       | Salon Booking |
-      | task9    | mo ta full   | 1        | Salon | Salon Booking |
+      | task9    | mo ta full  | 1        | Salon | Salon Booking |

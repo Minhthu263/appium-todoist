@@ -1,4 +1,4 @@
-@login @parallel3
+@login @parallel1
 Feature: Kiểm tra login app successful
 
   Scenario: Login app with Google
