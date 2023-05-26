@@ -14,10 +14,13 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.UnreachableBrowserException;
 
+import javax.mail.*;
+import javax.mail.internet.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class Hooks extends BaseSteps {
@@ -112,7 +115,7 @@ public class Hooks extends BaseSteps {
     }
 
     @After
-    public void tearDown(Scenario scenario) throws IOException {
+    public void tearDown(Scenario scenario) throws IOException, MessagingException, InterruptedException {
         if (scenario.isFailed()) {
             addScreenshot(scenario);
             scenario.attach(Files.readAllBytes(addScreenshot(scenario)), "png", scenario.getName());
@@ -124,6 +127,8 @@ public class Hooks extends BaseSteps {
         } else {
             log.info("------------- " + scenario.getName() + " -------------" + scenario.getStatus());
         }
+
+        test();
     }
 
 //    @After
@@ -176,5 +181,57 @@ public class Hooks extends BaseSteps {
         public void run() {
             close();
         }
+    }
+    public void test() throws IOException, InterruptedException, MessagingException {
+        log.info("TEST");
+        System.out.println("---TEST---");
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("thu.ttm@kiotviet.com", "bcqweyzczjahswmj");
+            }
+        });
+
+        MimeMessage message = new MimeMessage(session);
+        message.setFrom(new InternetAddress("thu.ttm@kiotviet.com"));
+        message.addRecipient(Message.RecipientType.TO, new InternetAddress("taminhthu263@gmail.com"));
+        message.setSubject("Test Results");
+        message.setText("Attached are the test results");
+
+        generateAllureReport("/Users/minhthu/Documents/Automation/Auto_Mobile/GraduationProject/appium-todoist/target/allure-results",
+                "/Users/minhthu/Documents/Automation/Auto_Mobile/GraduationProject/appium-todoist/target/hi");
+        MimeBodyPart attachmentPart = new MimeBodyPart();
+        attachmentPart.attachFile(new File("/Users/minhthu/Documents/Automation/Auto_Mobile/GraduationProject/appium-todoist/target/surefire-reports/index.html"));
+
+//        MimeBodyPart attachmentPart = new MimeBodyPart();
+//        attachmentPart.attachFile(new File("/Users/minhthu/Documents/Automation/Auto_Mobile/GraduationProject/appium-todoist/target/test-classes/allure.properties"));
+
+        Multipart multipart = new MimeMultipart();
+        multipart.addBodyPart(attachmentPart);
+
+        message.setContent(multipart);
+        Transport.send(message);
+    }
+
+    public void generateAllureReport(String resultsPath, String reportPath) throws IOException, InterruptedException {
+        String allureCommand = "allure generate " + resultsPath + " -o " + reportPath;
+        ProcessBuilder builder = new ProcessBuilder();
+        builder.command("bash", "-c", allureCommand);
+        builder.directory(new File("."));
+        builder.redirectErrorStream(true);
+        Process process = builder.start();
+        InputStream inputStream = process.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            System.out.println(line);
+        }
+        int exitCode = process.waitFor();
+        System.out.println("Allure command exit code: " + exitCode);
     }
 }
