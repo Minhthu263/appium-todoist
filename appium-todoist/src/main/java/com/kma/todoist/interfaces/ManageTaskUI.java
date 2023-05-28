@@ -27,7 +27,7 @@ public class ManageTaskUI {
     public static final String DUE_DATE_LABEL = "//android.widget.TextView[@resource-id='com.todoist:id/text' and @text='%s']/following-sibling::android.widget.RelativeLayout//android.widget.TextView[@resource-id='com.todoist:id/due_date']";
     public static final String MORE_ICON_IN_HOME = "//android.widget.ImageView[@content-desc='More options']";
     public static final String THIS_WEEKEND_BUTTON = "//android.widget.TextView[@resource-id='android:id/text1' and @text='This weekend']";
-    public static final String ANY_DAY_BUTTON = "//android.view.View[@resource-id='com.todoist:id/month_view'][2]/android.view.View[8]";
+    public static final String ANY_DAY_BUTTON = "//android.view.View[@resource-id='com.todoist:id/month_view'][2]/android.view.View[2]";
     public static final String SCHEDULE_BUTTON_IN_DUEDATE = "//android.widget.Button[@resource-id='com.todoist:id/scheduler_submit']";
     public static final String COMPLETE_TASK_CHECKBOX = "//android.widget.TextView[@resource-id='com.todoist:id/text' and @text='%s']/preceding-sibling::android.widget.CheckBox";
     public static final String COMPLETE_MSG = "//android.widget.TextView[@text='Completed.']";

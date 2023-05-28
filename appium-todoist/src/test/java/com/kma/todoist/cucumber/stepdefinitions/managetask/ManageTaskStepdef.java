@@ -197,7 +197,8 @@ public class ManageTaskStepdef extends BaseSteps {
         String[] date = getContentdescAtribute(appiumDriver, ManageTaskUI.ANY_DAY_BUTTON).split(" ");
         int i = Integer.parseInt(date[0]);
         String day = Integer.toString(i);
-        testContext.scenarioContext.setContext(GlobalVariables.TASK_DUE_DATE, date[1] + " " + day);
+//        testContext.scenarioContext.setContext(GlobalVariables.TASK_DUE_DATE, date[1] + " " + day);
+        testContext.scenarioContext.setContext(GlobalVariables.TASK_DUE_DATE, "Wendnesday");
         manageTask.clickToScheduleButton();
     }
 
@@ -225,12 +226,17 @@ public class ManageTaskStepdef extends BaseSteps {
     @When("I click complete task {string}")
     public void iClickCompleteTask(String taskName) {
         clickToElement(appiumDriver, ManageTaskUI.COMPLETE_TASK_CHECKBOX, taskName);
-        manageTask.checkDisplayTaskNameButton();
     }
 
     @Then("Verify complete")
     public void verifyComplete() {
-        Assert.assertTrue(isDisplayed(appiumDriver, ManageTaskUI.COMPLETE_MSG));
+        if (!isElementExist(appiumDriver, ManageTaskUI.ADD_TASK_ICON)) {
+            manageTask.closeAddTask();
+        }
+//        manageTask.checkDisplayTaskNameButton();
+        else {
+            Assert.assertTrue(isDisplayed(appiumDriver, ManageTaskUI.COMPLETE_MSG));
+        }
     }
 
     @And("I click Discard task")

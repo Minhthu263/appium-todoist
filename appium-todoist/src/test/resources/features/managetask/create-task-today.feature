@@ -1,7 +1,7 @@
 @parallel2
 Feature: Create task today
 
-  Scenario: Logib234 task unsuccessful
+  Scenario: Create task unsuccessful
     Given I click menu bar
     And I click to Today
     And I click icon Add Task
@@ -10,8 +10,8 @@ Feature: Create task today
     Then Verify create task unsuccessful
 
   Scenario Outline: <taskName> task successful
-    Given I click menu bar
-    And I click to Today
+#    Given I click menu bar
+#    And I click to Today
     And I click icon Add Task
     When I input information
       | taskName    | <taskName>    |
