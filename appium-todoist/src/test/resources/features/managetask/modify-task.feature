@@ -1,4 +1,4 @@
-@parallel1
+@parallel2
 Feature: Modify task
 
   Scenario: Edit task unsuccessful when not enter taskname
