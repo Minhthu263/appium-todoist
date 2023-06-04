@@ -32,13 +32,11 @@ public class ManageProjectsStepdefs extends BaseSteps {
 
     @When("I click + Add project")
     public void i_click_add_project() {
-        log.info("STEP-I click + Add project");
         manageProject.clickToIconAddProject();
     }
 
     @When("I input Project Name with {string}")
     public void i_input_project_name_with(String projectName) {
-        log.info("STEP-input Project Name");
         manageProject.inputToProjectNameTextbox(projectName);
         Project project = new Project(projectName, null);
         testContext.scenarioContext.setContext(GlobalVariables.CREATE_PROJECT, project);
@@ -88,7 +86,6 @@ public class ManageProjectsStepdefs extends BaseSteps {
 
     @And("I choose cancel")
     public void iChooseCancel() {
-        log.info("STEP - choose cancel");
         manageProject.clickToCancelArchiveButton();
     }
 
@@ -116,7 +113,6 @@ public class ManageProjectsStepdefs extends BaseSteps {
 
     @And("I edit project information")
     public void iEditProjectInformation(List<Map<String, String>> data) {
-        log.info("ManageProject - STEP - Chỉnh sửa thông tin");
         String projectNameOld = data.get(0).get("projectNameOld");
         String projectName = data.get(0).get("projectName");
         String color = data.get(0).get("color");
