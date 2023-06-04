@@ -18,7 +18,6 @@ public class HomePage extends BasePage {
     }
 
     public void clickToManageProjectsButton() {
-//        swipeItemDown(appiumDriver, HomePageUI.MANAGE_PROJECTS_BUTTON);
         clickToElement(appiumDriver, HomePageUI.MANAGE_PROJECTS_BUTTON);
     }
 }

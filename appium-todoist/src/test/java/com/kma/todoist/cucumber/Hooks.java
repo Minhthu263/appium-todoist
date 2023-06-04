@@ -107,10 +107,6 @@ public class Hooks extends BaseSteps {
         }
     }
 
-    public static AppiumDriver<MobileElement> getDriver() {
-        return driver;
-    }
-
     @After
     public void tearDown(Scenario scenario) throws IOException {
         if (scenario.isFailed()) {
@@ -125,39 +121,6 @@ public class Hooks extends BaseSteps {
             log.info("------------- " + scenario.getName() + " -------------" + scenario.getStatus());
         }
     }
-
-//    @After
-//    public void sendEmail() throws IOException, MessagingException {
-//        Properties props = new Properties();
-//        props.put("mail.smtp.auth", "true");
-//        props.put("mail.smtp.starttls.enable", "true");
-//        props.put("mail.smtp.host", "smtp.gmail.com");
-//        props.put("mail.smtp.port", "587");
-//
-//        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
-//            protected PasswordAuthentication getPasswordAuthentication() {
-//                return new PasswordAuthentication("thu.ttm@kiotviet.com", "bcqweyzczjahswmj");
-//            }
-//        });
-//
-//        MimeMessage message = new MimeMessage(session);
-//        message.setFrom(new InternetAddress("thu.ttm@kiotviet.com"));
-//        message.addRecipient(Message.RecipientType.TO, new InternetAddress("taminhthu263@gmal.com"));
-//        message.setSubject("Test Results");
-//        message.setText("Attached are the test results");
-//
-//        MimeBodyPart attachmentPart = new MimeBodyPart();
-//        attachmentPart.attachFile(new File("/Users/minhthu/Documents/Automation/Auto_Mobile/GraduationProject/appium-todoist/target/surefire-reports/old/index.html"));
-//
-//        Multipart multipart = new MimeMultipart();
-//        multipart.addBodyPart(attachmentPart);
-//
-//        message.setContent(multipart);
-//
-//        Transport.send(message);
-//
-//        log.info("DDAX GUIW NEF");
-//    }
 
     public static Path addScreenshot(Scenario scenario) {
         String folderName = "screenshot";

@@ -26,7 +26,6 @@ public class ManageProjectsStepdefs extends BaseSteps {
     public ManageProjectsStepdefs(TestContext context) {
         super(context);
         this.appiumDriver = Hooks.openAndQuitApp();
-//        this.appiumDriver = Hooks.getDriver();
         manageProject = PageGeneratorManager.getManageProjectPage(appiumDriver);
         testContext = context;
     }
@@ -236,7 +235,6 @@ public class ManageProjectsStepdefs extends BaseSteps {
 
     @And("I input comment with {string}")
     public void iInputCommentWith(String comment) {
-//        tapThenSenkeysToElement(appiumDriver, ManageProjectPageUI.ADD_A_COMMENT,comment);
         clickToElement(appiumDriver, ManageProjectPageUI.ADD_A_COMMENT_BUTTON);
         senkeysToElement(appiumDriver, ManageProjectPageUI.ADD_A_COMMENT_TEXTBOX, comment);
         clickToElement(appiumDriver, ManageProjectPageUI.SEND_COMMENT_BUTTON);
@@ -271,7 +269,6 @@ public class ManageProjectsStepdefs extends BaseSteps {
 
     @Then("Verify comment unsuccessful")
     public void verifyCommentUnsuccessful() {
-//        String comment = getTextAtribute(appiumDriver, ManageProjectPageUI.COMMENT_TEXT_FOLLOW_MORE_OPTIONS);
         String comment = testContext.scenarioContext.getContext(GlobalVariables.COMMENT);
         Assert.assertEquals(getTextAtribute(appiumDriver, ManageProjectPageUI.COMMENT_LABEL), comment);
     }
@@ -308,7 +305,6 @@ public class ManageProjectsStepdefs extends BaseSteps {
     @Then("Verify delete comment successful")
     public void verifyDeleteCommentSuccessful() {
         String comment = testContext.scenarioContext.getContext(GlobalVariables.COMMENT);
-//        Assert.assertFalse(getTextAtribute(appiumDriver, ManageProjectPageUI.COMMENT_LABEL).equals(comment));
         Assert.assertFalse(isElementExist(appiumDriver, ManageProjectPageUI.COMMENT_TEXT_LABEL), comment);
     }
 
@@ -320,7 +316,6 @@ public class ManageProjectsStepdefs extends BaseSteps {
 
     @Then("I check delete project unsuccessful")
     public void iCheckDeleteProjectUnsuccessful() {
-//        String projectName = testContext.scenarioContext.getContext(GlobalVariables.PROJECT_NAME);
         manageProject.verifyCreateProjectSuccessful(testContext.scenarioContext.getContext(GlobalVariables.PROJECT_NAME));
     }
 

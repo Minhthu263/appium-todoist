@@ -7,7 +7,6 @@ import org.testng.asserts.SoftAssert;
 
 public class LoginPage extends BasePage {
     AppiumDriver appiumDriver;
-    SoftAssert softAssert = new SoftAssert();
 
     public LoginPage(AppiumDriver appiumDriver) {
         this.appiumDriver = appiumDriver;

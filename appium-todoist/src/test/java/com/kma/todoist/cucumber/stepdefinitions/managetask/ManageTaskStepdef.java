@@ -28,26 +28,17 @@ public class ManageTaskStepdef extends BaseSteps {
     public ManageTaskStepdef(TestContext context) {
         super(context);
         this.appiumDriver = Hooks.openAndQuitApp();
-//        this.appiumDriver = Hooks.getDriver();
         manageTask = PageGeneratorManager.getManageTaskPage(appiumDriver);
         testContext = context;
     }
 
     @Given("I click icon Add Task")
     public void i_click_icon_add_task() {
-        log.info("ManageTask - STEP - Click icon Add task");
-//        isDisplayed(appiumDriver, ManageTaskUI.TODAY_LABEL);
-//        isDisplayed(appiumDriver, ManageTaskUI.MORE_ICON_IN_HOME);
-//        if (!isElementExist(appiumDriver, ManageTaskUI.ADD_TASK_ICON)){
-//            manageTask.closeAddTask();
-//        }
-//        clickToElement(appiumDriver, ManageTaskUI.ADD_TASK_ICON);
         manageTask.clickToIconAddTask();
     }
 
     @When("I input information")
     public void iInputInformation(Map<String, String> data) {
-        log.info("ManageTask - STEP - Nhập thông tin");
         String taskName = data.get("taskName");
         String description = data.get("description");
         String priority = data.get("priority");
@@ -74,14 +65,12 @@ public class ManageTaskStepdef extends BaseSteps {
 
     @And("I click Send button")
     public void iClickSendButton() {
-        log.info("ManageTask - STEP - Send button");
         manageTask.clickToSendButton();
         manageTask.closeAddTask();
     }
 
     @Then("Verify add task")
     public void verifyAddTask() {
-        log.info("ManageTask - STEP - Verify add task");
         Task task = testContext.scenarioContext.getContext("task");
         String taskName = task.getTaskName();
 
@@ -105,7 +94,6 @@ public class ManageTaskStepdef extends BaseSteps {
     @When("I view task {string}")
     public void iViewTask(String taskName) {
         isDisplayed(appiumDriver, ManageTaskUI.TODAY_LABEL);
-//        scrollMobileUpToElement(appiumDriver, ManageTaskUI.TASK_NAME_BUTTON, taskName);
         clickToElement(appiumDriver, ManageTaskUI.TASK_NAME_BUTTON, taskName);
     }
 
@@ -154,7 +142,6 @@ public class ManageTaskStepdef extends BaseSteps {
         String taskName = "Task " + generateNumber();
         testContext.scenarioContext.setContext(GlobalVariables.TASK_NAME, taskName);
         manageTask.inputToTaskNameTextbox(taskName);
-//        tapThenSenkeysToElement(appiumDriver, ManageTaskUI.TASK_NAME_TEXTBOX, taskName);
     }
 
     @Then("Verify add task tomorrow")
@@ -178,8 +165,6 @@ public class ManageTaskStepdef extends BaseSteps {
             manageTask.clickToNextWeekButton();
             testContext.scenarioContext.setContext(GlobalVariables.TASK_DUE_DATE, "Monday");
         }
-//        testContext.scenarioContext.setContext(GlobalVariables.TASK_DUE_DATE, "Saturday");
-
     }
 
     @Then("Verify add task this weekend")
@@ -197,8 +182,8 @@ public class ManageTaskStepdef extends BaseSteps {
         String[] date = getContentdescAtribute(appiumDriver, ManageTaskUI.ANY_DAY_BUTTON).split(" ");
         int i = Integer.parseInt(date[0]);
         String day = Integer.toString(i);
-//        testContext.scenarioContext.setContext(GlobalVariables.TASK_DUE_DATE, date[1] + " " + day);
-        testContext.scenarioContext.setContext(GlobalVariables.TASK_DUE_DATE, "Wendnesday");
+        testContext.scenarioContext.setContext(GlobalVariables.TASK_DUE_DATE, date[1] + " " + day);
+//        testContext.scenarioContext.setContext(GlobalVariables.TASK_DUE_DATE, "Wendnesday");
         manageTask.clickToScheduleButton();
     }
 
@@ -233,7 +218,6 @@ public class ManageTaskStepdef extends BaseSteps {
         if (!isElementExist(appiumDriver, ManageTaskUI.ADD_TASK_ICON)) {
             manageTask.closeAddTask();
         }
-//        manageTask.checkDisplayTaskNameButton();
         else {
             Assert.assertTrue(isDisplayed(appiumDriver, ManageTaskUI.COMPLETE_MSG));
         }
@@ -248,7 +232,6 @@ public class ManageTaskStepdef extends BaseSteps {
     @Then("Verify create task unsuccessful")
     public void verifyCreateTaskUnsuccessful() {
         String taskName = testContext.scenarioContext.getContext(GlobalVariables.TASK_NAME);
-//        Assert.assertTrue(isNotDisplayed(appiumDriver, ManageTaskUI.TASK_NAME_LABEL, taskName));
         Assert.assertFalse(isElementExist(appiumDriver, ManageTaskUI.TASK_NAME_LABEL, taskName));
     }
 
@@ -329,7 +312,6 @@ public class ManageTaskStepdef extends BaseSteps {
     public void verifyDeleteTaskSuccessful() {
         String taskName = testContext.scenarioContext.getContext(GlobalVariables.TASK_NAME);
         isDisplayed(appiumDriver, ManageTaskUI.MORE_ICON_IN_HOME);
-//        clickToElement(appiumDriver, ManageTaskUI.TASK_NAME_BUTTON, taskName);
         Assert.assertFalse(isElementExist(appiumDriver, ManageTaskUI.TASK_NAME_BUTTON, taskName));
     }
 
