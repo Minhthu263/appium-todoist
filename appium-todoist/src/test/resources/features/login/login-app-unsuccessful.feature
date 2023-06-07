@@ -1,7 +1,6 @@
 @login @parallel1
-Feature: Kiểm tra login app unsuccessful
+Feature: Login app unsuccessful
 
-  @parallel4
   Scenario: Login app with Email available
     Given I click Continue with more options
     And I click Login with Email

@@ -1,7 +1,7 @@
 @parallel1
-Feature: Chỉnh sửa project
+Feature: Edit project
 
-  Scenario Outline: Chỉnh sửa project
+  Scenario Outline: Edit project
     Given I click menu bar
     And I click Manage project
     When I click project name with "<projectNameOld>"

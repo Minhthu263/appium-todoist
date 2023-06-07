@@ -1,4 +1,4 @@
-@parallel2
+@parallel2 @parallel3
 Feature: Create task different today
 
   Scenario: Create task in the past

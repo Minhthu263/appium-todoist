@@ -1,7 +1,6 @@
 @login @parallel1
-Feature: Kiểm tra login app successful
+Feature: Login app successful
 
-  @parallel3
   Scenario: Login app with Google
     When I click Continue with Google
     When I choose account

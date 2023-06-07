@@ -1,7 +1,7 @@
 @parallel1
-Feature: Thêm mới project
+Feature: Create project
 
-  Scenario: Thêm mới dự án thành công khi nhập tên
+  Scenario: Create project success when input name
     Given I click menu bar
     And I click Manage project
     When I click + Add project
@@ -9,7 +9,7 @@ Feature: Thêm mới project
     And I click to V icon
     Then I check create project successful
 
-  Scenario: Thêm mới dự án thành công khi nhập full thông tin
+  Scenario: Create project success when input full information
     Given I click menu bar
     And I click Manage project
     When I click + Add project
