@@ -52,7 +52,7 @@ public class BasePage {
 
     protected boolean isElementExist(AppiumDriver<MobileElement> appiumDriver, String locator, String... value) {
 //        setImplicitlyWait(appiumDriver, GlobalVariables.SHORT_TIME_OUT);
-        setImplicitlyWait(appiumDriver, 3);
+        setImplicitlyWait(appiumDriver, 3000);
         boolean check = findElementsByXpath(appiumDriver, getLocatorDynamic(locator, value)).isEmpty();
         setImplicitlyWait(appiumDriver, GlobalVariables.TIME_OUT);
         return !check;
