@@ -19,8 +19,8 @@ Feature: Create task different today
     Then Verify add task different today
 
   Scenario: Create task This weekend
-    Given I click menu bar
-    And I click to Inbox
+#    Given I click menu bar
+#    And I click to Inbox
     And I click icon Add Task
     When I input to Task name
     And I choose This weekend
@@ -28,8 +28,8 @@ Feature: Create task different today
     Then Verify add task different today
 
   Scenario: Create task any day
-    Given I click menu bar
-    And I click to Inbox
+#    Given I click menu bar
+#    And I click to Inbox
     And I click icon Add Task
     When I input to Task name
     And I choose any day
@@ -37,8 +37,8 @@ Feature: Create task different today
     Then Verify add task different today
 
   Scenario: Create task click schedule
-    Given I click menu bar
-    And I click to Inbox
+#    Given I click menu bar
+#    And I click to Inbox
     And I click icon Add Task
     When I input to Task name
     And I choose schedule
@@ -46,8 +46,8 @@ Feature: Create task different today
     Then Verify add task different today
 
   Scenario: Create task no date
-    Given I click menu bar
-    And I click to Inbox
+#    Given I click menu bar
+#    And I click to Inbox
     And I click icon Add Task
     When I input to Task name
     And I click Send button
