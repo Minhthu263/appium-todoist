@@ -18,14 +18,14 @@ Feature: Create task different today
     And I click Send button
     Then Verify add task different today
 
-#  Scenario: Create task This weekend
-##    Given I click menu bar
-##    And I click to Inbox
-#    And I click icon Add Task
-#    When I input to Task name
-#    And I choose This weekend
-#    And I click Send button
-#    Then Verify add task different today
+  Scenario: Create task This weekend
+#    Given I click menu bar
+#    And I click to Inbox
+    And I click icon Add Task
+    When I input to Task name
+    And I choose This weekend
+    And I click Send button
+    Then Verify add task different today
 
   Scenario: Create task any day
 #    Given I click menu bar
