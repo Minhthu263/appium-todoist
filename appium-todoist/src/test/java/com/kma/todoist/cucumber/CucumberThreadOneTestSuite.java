@@ -5,7 +5,8 @@ import io.cucumber.testng.CucumberOptions;
 @CucumberOptions(
         features = "src/test/resources/features",
         plugin = {"pretty"},
-        tags = "@parallel3 and not @ignore"
+        tags = "@parallel1 and not @ignore"
 )
-public class CucumberThreadOneTestSuite extends AbstractTestNGCucumberTests {
+public class CucumberThreadOneTestSuite
+        extends AbstractTestNGCucumberTests {
 }
